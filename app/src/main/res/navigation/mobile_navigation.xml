@@ -6,26 +6,23 @@
     app:startDestination="@+id/navigation_edituser">
 
     <fragment
-        android:id="@+id/navigation_edituser"
-        android:name="com.example.mobileappas2.ui.edituser.EditUserFragment"
-        android:label="@string/title_edituser"
-        tools:layout="@layout/fragment_edituser" />
-
-    <fragment
         android:id="@+id/navigation_shop"
         android:name="com.example.mobileappas2.ui.shop.ShopFragment"
         android:label="@string/title_shop"
         tools:layout="@layout/fragment_shop" />
-
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.example.mobileappas2.ui.user.UserFragment"
         android:label="@string/title_user"
         tools:layout="@layout/fragment_user" />
-
     <fragment
         android:id="@+id/navigation_basket"
         android:name="com.example.mobileappas2.ui.basket.BasketFragment"
         android:label="@string/title_basket"
         tools:layout="@layout/fragment_basket" />
+    <fragment
+        android:id="@+id/navigation_edituser"
+        android:name="com.example.mobileappas2.ui.edituser.EditUserFragment"
+        android:label="@string/title_edituser"
+        tools:layout="@layout/fragment_edituser" />
 </navigation>

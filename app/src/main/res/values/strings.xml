@@ -35,8 +35,7 @@
     <string name="category_title">Cat_Title</string>
     <string name="category_description">example description of a category</string>
     <!-- recycler view items -->
-    <string name="shoprecycler_price">Price: £</string>
-    <string name="shoprecycler_addtobasket">+</string>
+    <string name="shoprecycler_price">Price</string>
 
     <!-- USER USER SCREEN -->
     <string name="username_text">Name</string>
