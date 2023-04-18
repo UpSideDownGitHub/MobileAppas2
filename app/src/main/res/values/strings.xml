@@ -11,6 +11,9 @@
     <string name="password_hint">Password</string>
     <string name="login_Button">Login</string>
     <string name="register_Button">Register</string>
+    <string name="username_incorrect_toast">Incorrect Username</string>
+    <string name="password_incorrect_toast">Incorrect Password</string>
+    <string name="welcome_toast">Welcome</string>
 
     <!-- REGISTER SCREEN -->
     <string name="register_Title">Register</string>
@@ -21,7 +24,35 @@
     <string name="re_email_entry">Re-Enter Email</string>
     <string name="address_entry">Delivery Address</string>
     <string name="postcode_entry">Postcode</string>
+    <string name="phonenumber_entry">Phone Number</string>
     <string name="register_button">Register</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_empty_toast">Make Sure To Fill All Entries</string>
+    <string name="register_email_toast">Emails Do Not Match</string>
+    <string name="register_password_toast">Passwords Do Not Match</string>
+    <string name="register_succesful_toast">Registered Successfully</string>
+
+    <!-- USER SHOP SCREEN -->
+    <string name="category_title">Cat_Title</string>
+    <string name="category_description">example description of a category</string>
+    <!-- recycler view items -->
+    <string name="shoprecycler_price">Price: £</string>
+    <string name="shoprecycler_addtobasket">+</string>
+
+    <!-- USER USER SCREEN -->
+    <string name="username_text">Name</string>
+    <string name="useremail_text">Email</string>
+    <string name="oldorders_title">Old Orders</string>
+    <!-- recycler view items -->
+    <string name="pricetotal_text">Total: £</string>
+    <string name="orderstatus_text">Status: </string>
+
+    <!-- USER EDIT USER SCREEN -->
+    <string name="update_userinfo_button">Update</string>
+    <string name="cancel_userinfo_button">Cancel</string>
+    <string name="oldpassword_entry">Old Password</string>
+
+    <!-- BASKET SCREEN -->
+    <string name="buycontents_button">Buy</string>
+    <string name="removecontents_button">Remove All</string>
+
 </resources>

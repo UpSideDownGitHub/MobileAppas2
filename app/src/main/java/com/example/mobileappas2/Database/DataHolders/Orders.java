@@ -1,8 +1,8 @@
 package com.example.mobileappas2.Database.DataHolders;
 
 public class Orders {
-    private Integer ID, dateCreated,
-            dateUpdated, status;
+    private Integer ID, status;
+    private String dateCreated, dateUpdated;
 
 
     public Integer getID() {
@@ -13,19 +13,19 @@ public class Orders {
         this.ID = ID;
     }
 
-    public Integer getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Integer dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Integer getDateUpdated() {
+    public String getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(Integer dateUpdated) {
+    public void setDateUpdated(String dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 

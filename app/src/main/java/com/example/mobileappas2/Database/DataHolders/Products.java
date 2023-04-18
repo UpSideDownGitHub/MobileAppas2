@@ -2,7 +2,7 @@ package com.example.mobileappas2.Database.DataHolders;
 
 public class Products {
     private String name, description;
-    private Long dateCreated, dateUpdated;
+    private String dateCreated, dateUpdated;
     private Float price, listPrice,
             retailPrice;
     private Integer ID, categoryID;
@@ -56,19 +56,19 @@ public class Products {
         this.retailPrice = retailPrice;
     }
 
-    public Long getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Long dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Long getDateUpdated() {
+    public String getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(Long dateUpdated) {
+    public void setDateUpdated(String dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 

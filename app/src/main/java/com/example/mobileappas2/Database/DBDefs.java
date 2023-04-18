@@ -30,8 +30,8 @@ public final class DBDefs
                 C_FULL_NAME + " VARCHAR, " +
                 C_EMAIL_ADDRESS + " VARCHAR, " +
                 C_PASSWORD + " VARCHAR, " +
-                C_DATE_REGISTERED + " DATETIME, " +
-                C_DATE_UPDATED + " DATETIME, " +
+                C_DATE_REGISTERED + " VARCHAR, " +
+                C_DATE_UPDATED + " VARCHAR, " +
                 C_POSTCODE + " VARCHAR, " +
                 C_ADDRESS + " VARCHAR, " +
                 C_PHONE_NUMBER + " INTEGER);";
@@ -85,8 +85,8 @@ public final class DBDefs
                 C_PRICE + " DECIMAL(100, 2), " +
                 C_LIST_PRICE + " DECIMAL(100, 2), " +
                 C_RETAIL_PRICE + " DECIMAL(100, 2), " +
-                C_PRODUCT_DATE_CREATED + " DATETIME, " +
-                C_PRODUCT_DATE_UPDATED + " DATETIME, " +
+                C_PRODUCT_DATE_CREATED + " VARCHAR, " +
+                C_PRODUCT_DATE_UPDATED + " VARCHAR, " +
                 C_CATEGORY_ID + " INTEGER, " +
                 "FOREIGN KEY (" + C_CATEGORY_ID + ") REFERENCES " + Category.TABLE_NAME + "(" + Category.C_CATEGORY_ID + "));";
 

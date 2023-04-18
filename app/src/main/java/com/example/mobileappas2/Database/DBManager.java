@@ -42,8 +42,8 @@ public class DBManager {
         this.database.insert(DBDefs.Category.TABLE_NAME, null, contentValue);
     }
     // Order
-    public void insert(Integer dateCreated,
-                       Integer dateUpdated,
+    public void insert(String dateCreated,
+                       String dateUpdated,
                        Integer status) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.Order.C_DATE_CREATED, dateCreated);
@@ -62,8 +62,8 @@ public class DBManager {
     // Products
     public void insert(String name,
                        String description,
-                       Long dateCreated,
-                       Long dateUpdated,
+                       String dateCreated,
+                       String dateUpdated,
                        Float price,
                        Float listPrice,
                        Float retailPrice,
@@ -94,8 +94,8 @@ public class DBManager {
                        String password,
                        String postcode,
                        String address,
-                       Long dateRegistered,
-                       Long dateUpdated,
+                       String dateRegistered,
+                       String dateUpdated,
                        Integer phoneNumber) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);
@@ -143,9 +143,9 @@ limit: limit the number of results to return
     }
     // Order
     public int update(Integer ID,
-                       Integer dateCreated,
-                       Integer dateUpdated,
-                       Integer status,
+                      String dateCreated,
+                      String dateUpdated,
+                      Integer status,
                       String[] whereArgs) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.Order.C_DATE_CREATED, dateCreated);
@@ -166,8 +166,8 @@ limit: limit the number of results to return
     // Products
     public int update(String name,
                        String description,
-                       Long dateCreated,
-                       Long dateUpdated,
+                       String dateCreated,
+                       String dateUpdated,
                        Float price,
                        Float listPrice,
                        Float retailPrice,
@@ -202,11 +202,11 @@ limit: limit the number of results to return
                        String password,
                        String postcode,
                        String address,
-                       Long dateRegistered,
-                       Long dateUpdated,
+                       String dateRegistered,
+                       String dateUpdated,
                        Integer ID,
                        Integer phoneNumber,
-                      String[] whereArgs) {
+                       String[] whereArgs) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);
         contentValue.put(DBDefs.User.C_EMAIL_ADDRESS, email);

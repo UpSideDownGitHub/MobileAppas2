@@ -4,8 +4,7 @@ public class Users {
     private String fullName, email,
             password, postcode,
             address;
-    private Long dateRegistered,
-            dateUpdated;
+    private String dateRegistered, dateUpdated;
     private Integer ID, phoneNumber;
 
 
@@ -42,19 +41,19 @@ public class Users {
         this.password = password;
     }
 
-    public Long getDateRegistered() {
+    public String getDateRegistered() {
         return dateRegistered;
     }
 
-    public void setDateRegistered(Long dateRegistered) {
+    public void setDateRegistered(String dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
 
-    public Long getDateUpdated() {
+    public String getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(Long dateUpdated) {
+    public void setDateUpdated(String dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 
