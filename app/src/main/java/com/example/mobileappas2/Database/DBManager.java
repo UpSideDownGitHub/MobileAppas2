@@ -223,4 +223,14 @@ limit: limit the number of results to return
     public void delete(Integer ID,String tableName, String IDName, String[] whereArgs) {
         this.database.delete(tableName, IDName + ID, whereArgs);
     }
+
+    public void purgeDatabase()
+    {
+        this.database.delete(DBDefs.Product_Order.TABLE_NAME, null, null);
+        this.database.delete(DBDefs.Product.TABLE_NAME, null, null);
+        this.database.delete(DBDefs.Category.TABLE_NAME, null, null);
+        this.database.delete(DBDefs.User.TABLE_NAME, null, null);
+        this.database.delete(DBDefs.Order.TABLE_NAME, null, null);
+        this.database.delete(DBDefs.User_Order.TABLE_NAME, null, null);
+    }
 }

@@ -20,6 +20,8 @@ public class MainMenu extends AppCompatActivity {
         DBManager dbManager = new DBManager(this);
         dbManager.open();
 
+        dbManager.purgeDatabase();
+
         // INSERTING A CATEGORY
         dbManager.insert("All", "All Items");
         dbManager.insert("Fresh", "fresh food");
@@ -55,7 +57,10 @@ public class MainMenu extends AppCompatActivity {
         Button registerButton = findViewById(R.id.register_Button);
         registerButton.setOnClickListener(view -> loadRegisterScreen());
 
-        insertDummyData();
+        Button TEST = findViewById(R.id.TESTDATASPAWN);
+        TEST.setOnClickListener(view -> {
+            insertDummyData();
+        });
     }
 
     public void loadRegisterScreen()
@@ -82,10 +87,10 @@ public class MainMenu extends AppCompatActivity {
 
         // get the values from the cursor and store them
         Users user = new Users();
-        while (cursor.moveToNext()) {
+        do {
             user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
-        }
+        } while (cursor.moveToNext());
 
         // if the username is equal to the current username
         if (user.getFullName() != null)
