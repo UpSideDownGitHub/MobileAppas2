@@ -2,10 +2,7 @@ package com.example.mobileappas2;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mobileappas2.Database.DBDefs;
@@ -48,16 +45,11 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_edituser, R.id.navigation_shop, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        // need to make class that allows for the extraction of data
-
-
-        saveToDB();
     }
 
 }

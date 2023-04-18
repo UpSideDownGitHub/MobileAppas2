@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">Mobile App as2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_edituser">Edit User</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_user">User</string>
+    <string name="title_basket">Basket</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    
+    <!-- LOGIN SCREEN -->
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_Button">Login</string>
+    <string name="register_Button">Register</string>
+
+    <!-- REGISTER SCREEN -->
+    <string name="register_Title">Register</string>
+    <string name="name_entry">Name</string>
+    <string name="password_entry">Password</string>
+    <string name="re_password_entry">Re-Enter Password</string>
+    <string name="email_entry">Email</string>
+    <string name="re_email_entry">Re-Enter Email</string>
+    <string name="address_entry">Delivery Address</string>
+    <string name="postcode_entry">Postcode</string>
+    <string name="register_button">Register</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
