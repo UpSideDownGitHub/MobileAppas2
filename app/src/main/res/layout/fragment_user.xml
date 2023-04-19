@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/userName_Text"
-        android:layout_width="400dp"
+        android:layout_width="390dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
@@ -32,8 +32,9 @@
 
     <TextView
         android:id="@+id/userEmail_Text"
-        android:layout_width="400dp"
+        android:layout_width="390dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/useremail_text"

@@ -202,7 +202,6 @@ limit: limit the number of results to return
                        String password,
                        String postcode,
                        String address,
-                       String dateRegistered,
                        String dateUpdated,
                        Integer ID,
                        Integer phoneNumber,
@@ -213,7 +212,6 @@ limit: limit the number of results to return
         contentValue.put(DBDefs.User.C_PASSWORD, password);
         contentValue.put(DBDefs.User.C_POSTCODE, postcode);
         contentValue.put(DBDefs.User.C_ADDRESS, address);
-        contentValue.put(DBDefs.User.C_DATE_REGISTERED, dateRegistered);
         contentValue.put(DBDefs.User.C_DATE_UPDATED, dateUpdated);
         contentValue.put(DBDefs.User.C_PHONE_NUMBER, phoneNumber);
         return this.database.update(DBDefs.User.TABLE_NAME, contentValue, "user_id = " + ID, whereArgs);

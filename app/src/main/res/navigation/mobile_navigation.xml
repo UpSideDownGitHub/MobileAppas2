@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_basket" />
     <fragment
         android:id="@+id/navigation_edituser"
-        android:name="com.example.mobileappas2.ui.edituser.EditUserFragment"
+        android:name="com.example.mobileappas2.ui.user.edituser.EditUserFragment"
         android:label="@string/title_edituser"
         tools:layout="@layout/fragment_edituser" />
 </navigation>

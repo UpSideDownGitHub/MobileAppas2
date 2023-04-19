@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.edituser.EditUserFragment">
+    tools:context=".ui.user.edituser.EditUserFragment">
 
     <EditText
         android:id="@+id/usernameEdit_EditText"
@@ -70,6 +70,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postcodeEdit_EditText" />
+
+    <EditText
+        android:id="@+id/phoneNumberEdit_EditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/phonenumber_entry"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressEdit_EditText" />
 
     <EditText
         android:id="@+id/oldpassword_EditText"

@@ -87,12 +87,13 @@ public class MainMenu extends AppCompatActivity {
 
         // get the values from the cursor and store them
         Users user = new Users();
-        do {
-            user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
-            user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
-            user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));
-        } while (cursor.moveToNext());
-
+        if (cursor.getCount() > 0) {
+            do {
+                user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
+                user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
+                user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));
+            } while (cursor.moveToNext());
+        }
         // if the username is equal to the current username
         if (user.getFullName() != null)
         {
