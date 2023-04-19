@@ -122,25 +122,40 @@ public class ShopFragment extends Fragment{
         dbManager.open();
 
         // load the data from the database
-        Cursor cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
-                new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
-                DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
-                DBDefs.Product.C_CATEGORY_ID + " like ?",
-                new String[]{"1"},
-                null, null, null, null);
+        Cursor cursor;
+        if (ID == 0)
+        {
+            // select all of the products
+            cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
+                    new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
+                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
+                    null, null, null, null, null, null);
+        }
+        else
+        {
+            // select a specific product
+            cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
+                    new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
+                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
+                    DBDefs.Product.C_CATEGORY_ID + " like ?",
+                    new String[]{Integer.toString(ID)},
+                    null, null, null, null);
+        }
 
         dbManager.close();
 
         // convert data in database to a usable list of strings
         ArrayList<Products> products = new ArrayList();
-        do {
-            Products prod = new Products();
-            prod.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
-            prod.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_DESCRIPTION)));
-            prod.setPrice(cursor.getFloat(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
-            prod.setCategoryID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Product.C_CATEGORY_ID)));
-            products.add(prod);
-        }while (cursor.moveToNext());
+        if (cursor.getCount() > 0) {
+            do {
+                Products prod = new Products();
+                prod.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
+                prod.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_DESCRIPTION)));
+                prod.setPrice(cursor.getFloat(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
+                prod.setCategoryID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Product.C_CATEGORY_ID)));
+                products.add(prod);
+            } while (cursor.moveToNext());
+        }
 
         // TODO: TAKE THE DATA FROM THE DATABASE AND GET ALL OF THE DATA FROM THE SELECTED
         // TODO: CATEGORY AND ADD IT TO THE RECYCLER VIEW
