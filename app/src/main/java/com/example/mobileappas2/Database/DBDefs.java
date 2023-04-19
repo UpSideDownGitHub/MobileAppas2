@@ -98,7 +98,6 @@ public final class DBDefs
         public static final String C_USER_ORDER_ID = "user_order_id";
         public static final String C_USER_ID = "user_id";
         public static final String C_ORDER_ID = "order_id";
-
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + " ( " +
                 C_USER_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 C_USER_ID + " INTEGER, " +

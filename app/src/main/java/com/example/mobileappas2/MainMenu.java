@@ -79,7 +79,7 @@ public class MainMenu extends AppCompatActivity {
         DBManager dbManager = new DBManager(this);
         dbManager.open();
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
-                new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD},
+                new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD, DBDefs.User.C_USER_ID},
                 DBDefs.User.C_FULL_NAME + " like ?",
                 new String[]{username.getText().toString()},
                 null, null, null, null);
@@ -90,6 +90,7 @@ public class MainMenu extends AppCompatActivity {
         do {
             user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
+            user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));
         } while (cursor.moveToNext());
 
         // if the username is equal to the current username
@@ -106,6 +107,7 @@ public class MainMenu extends AppCompatActivity {
 
                 // load
                 Intent intent = new Intent(MainMenu.this, MainActivity.class);
+                intent.putExtra("playerID", user.getID());
                 startActivity(intent);
                 return;
             }

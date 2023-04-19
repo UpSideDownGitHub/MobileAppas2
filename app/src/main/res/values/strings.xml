@@ -53,5 +53,7 @@
     <!-- BASKET SCREEN -->
     <string name="buycontents_button">Buy</string>
     <string name="removecontents_button">Remove All</string>
+    <!-- recycler view items -->
+    <string name="remove_item_button">-</string>
 
 </resources>

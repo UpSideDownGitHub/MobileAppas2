@@ -90,7 +90,7 @@ public class ShopFragment extends Fragment{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                // change the title and the descrption of the section based on the item selected
+                // change the title and the description of the section based on the item selected
                 int ID = spinner.getSelectedItemPosition();
                 catTitle.setText(categoryTitles.get(ID));
                 catDescription.setText(categoryDescriptions.get(ID));
@@ -128,7 +128,7 @@ public class ShopFragment extends Fragment{
             // select all of the products
             cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
                     new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
-                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
+                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID, DBDefs.Product.C_PRODUCT_ID},
                     null, null, null, null, null, null);
         }
         else
@@ -136,7 +136,7 @@ public class ShopFragment extends Fragment{
             // select a specific product
             cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
                     new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
-                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
+                            DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID, DBDefs.Product.C_PRODUCT_ID},
                     DBDefs.Product.C_CATEGORY_ID + " like ?",
                     new String[]{Integer.toString(ID)},
                     null, null, null, null);
@@ -153,15 +153,14 @@ public class ShopFragment extends Fragment{
                 prod.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_DESCRIPTION)));
                 prod.setPrice(cursor.getFloat(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
                 prod.setCategoryID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Product.C_CATEGORY_ID)));
+                prod.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_ID)));
                 products.add(prod);
             } while (cursor.moveToNext());
         }
 
-        // TODO: TAKE THE DATA FROM THE DATABASE AND GET ALL OF THE DATA FROM THE SELECTED
-        // TODO: CATEGORY AND ADD IT TO THE RECYCLER VIEW
-
         for (int i = 0; i < products.size(); i++) {
-            adapter.addValue(products.get(i).getName(), products.get(i).getDescription(), products.get(i).getPrice());
+            adapter.addValue(products.get(i).getName(), products.get(i).getDescription(),
+                    products.get(i).getPrice(), products.get(i).getID());
         }
 
         // update the adapter to show all the new data
