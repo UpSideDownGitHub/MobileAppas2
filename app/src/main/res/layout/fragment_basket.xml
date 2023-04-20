@@ -7,7 +7,7 @@
     tools:context=".ui.basket.BasketFragment">
 
     <TextView
-        android:id="@+id/admin_usersTitle_Text"
+        android:id="@+id/basket_title"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/admin_Users_RecyclerView"
+        android:id="@+id/basket_RecyclerView"
         android:layout_width="400dp"
         android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_usersTitle_Text">
+        app:layout_constraintTop_toBottomOf="@+id/basket_title">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -39,7 +39,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_Users_RecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/basket_RecyclerView" />
 
     <Button
         android:id="@+id/buyContents_Button"

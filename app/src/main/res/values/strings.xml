@@ -5,7 +5,7 @@
     <string name="title_user">User</string>
     <string name="title_basket">Basket</string>
     <string name="title_activity_main_menu">MainMenu</string>
-    
+
     <!-- LOGIN SCREEN -->
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
@@ -58,6 +58,11 @@
 
 
     <!-- ADMIN STRINGS -->
+    <!-- ADMIN NAV BAR -->
+    <string name="admin_navbar_1">SHOP</string>
+    <string name="admin_navbar_2">ORDER</string>
+    <string name="admin_navbar_3">USER</string>
+
     <!-- NEW ITEM -->
     <string name="admin_newitem_text">New</string>
     <string name="admin_description_hint">Description</string>
@@ -71,5 +76,12 @@
 
     <!-- EDIT USER -->
     <string name="admin_edituser_text">Edit User</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_admin">AdminActivity</string>
 
 </resources>

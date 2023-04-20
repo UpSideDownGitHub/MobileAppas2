@@ -69,11 +69,29 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(MainMenu.this, Register.class);
         startActivity(intent);
     }
+
+    private String adminUsername = "admin";
+    private String adminPassword = "admin";
     public void checkLogin()
     {
         // get the username and password from there text views
         EditText username = findViewById(R.id.username_editText);
         EditText password = findViewById(R.id.password_editText);
+
+        // CHECK FOR ADMIN LOGIN
+        if (username.getText().toString().equals(adminUsername) &&
+                password.getText().toString().equals(adminPassword))
+        {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.welcome_toast,
+                    Toast.LENGTH_SHORT).show();
+
+            // load
+            Intent intent = new Intent(MainMenu.this, AdminActivity.class);
+            startActivity(intent);
+            return;
+        }
 
         // retrieve the wanted values from the database
         DBManager dbManager = new DBManager(this);

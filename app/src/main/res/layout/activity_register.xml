@@ -7,7 +7,7 @@
     tools:context=".Register">
 
     <TextView
-        android:id="@+id/admin_updateItemTitle_textView"
+        android:id="@+id/registerTitle_textView"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/admin_productnameupdate_entry"
+        android:id="@+id/registerName_editText"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -28,10 +28,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_updateItemTitle_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/registerTitle_textView" />
 
     <EditText
-        android:id="@+id/admin_productDescriptionUpdate_entry"
+        android:id="@+id/registerPassword_editText"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -40,10 +40,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/registerName_editText" />
 
     <EditText
-        android:id="@+id/admin_productPriceUpdate_Entry"
+        android:id="@+id/registerRePassword_editText"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -52,7 +52,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPassword_editText" />
 
     <EditText
         android:id="@+id/registerEmail_editText"
@@ -64,7 +64,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productPriceUpdate_Entry" />
+        app:layout_constraintTop_toBottomOf="@+id/registerRePassword_editText" />
 
     <EditText
         android:id="@+id/registerReEmail_editText"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText" />
 
     <Button
-        android:id="@+id/admin_cancelNewProductUpdate_Button"
+        android:id="@+id/registerUser_Button"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -126,7 +126,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/admin_UpdateProduct_Button"
+        android:id="@+id/cancelRegistraction_Button"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"

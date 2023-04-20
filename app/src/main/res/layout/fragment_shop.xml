@@ -7,7 +7,7 @@
     tools:context=".ui.shop.ShopFragment">
 
     <Spinner
-        android:id="@+id/admin_User_Spinner"
+        android:id="@+id/category_Spinner"
         android:layout_width="409dp"
         android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/admin_UserName_Text"
+        android:id="@+id/categoryTitle_Text"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -24,10 +24,10 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_User_Spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/category_Spinner" />
 
     <TextView
-        android:id="@+id/admin_categoryDescription_Text"
+        android:id="@+id/categoryDescription_Text"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:text="@string/category_description"
@@ -37,14 +37,14 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_UserName_Text" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryTitle_Text" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/admin_Orders_RecyclerView"
+        android:id="@+id/shopItems_RecyclerView"
         android:layout_width="400dp"
         android:layout_height="550dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_categoryDescription_Text" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryDescription_Text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
