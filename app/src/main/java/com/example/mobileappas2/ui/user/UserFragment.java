@@ -73,77 +73,78 @@ public class UserFragment extends Fragment {
                 DBDefs.User_Order.C_USER_ID + " like ?",
                 new String[]{Integer.toString(userID)},
                 null, null ,null,null);
-        ArrayList<UserOrders> userOrders = new ArrayList();
-        do{
-            UserOrders userOrder = new UserOrders();
-            userOrder.setOrderID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_ORDER_ID)));
-            userOrder.setUserID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_USER_ID)));
-            userOrders.add(userOrder);
-        } while (cursor.moveToNext());
-        for (int i = 0; i < userOrders.size(); i++)
-        {
-            OldOrderData oldData = new OldOrderData();
-            oldOrderData.add(oldData);
-        }
 
-        // GET ALL OF THE PRODUCTS FOR EACH OF THE ORDERS I JUST SELECTED & GET THE PRICE
-        for (int i = 0; i < userOrders.size(); i++)
-        {
-            ArrayList<Products> productList = new ArrayList();
-            // product id list
-            Cursor cursor2 = dbManager.fetch(DBDefs.Product_Order.TABLE_NAME,
-                    new String[]{DBDefs.Product_Order.C_PRODUCT_ID, DBDefs.Product_Order.C_ORDER_ID},
-                    DBDefs.Product_Order.C_ORDER_ID + " like ?",
-                    new String[]{userOrders.get(i).getOrderID().toString()},
-                    null, null ,null,null);
-            do{
-                // product info list
-                Cursor cursor3 = dbManager.fetch(DBDefs.Product.TABLE_NAME,
-                        new String[]{DBDefs.Product.C_PRODUCT_ID, DBDefs.Product.C_PRODUCT_NAME,
-                        DBDefs.Product.C_PRICE},
-                        DBDefs.Product.C_PRODUCT_ID + " like ?",
-                        new String[]{cursor2.getString(cursor2.getColumnIndexOrThrow(DBDefs.Product_Order.C_PRODUCT_ID))},
-                        null, null ,null,null);
-                do{
-                    Products products = new Products();
-                    products.setName(cursor3.getString(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
-                    products.setPrice(cursor3.getFloat(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
-                    products.setID(cursor3.getInt(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_ID)));
-                    productList.add(products);
-                }while(cursor3.moveToNext());
-            } while (cursor2.moveToNext());
-            // take the generated product list and convert it to a string of the correct type
-            // and also turn this list into the total cost
-            String orderProducts = convertProductListToString(productList);
-            String orderTotal = convertProductListToTotalString(productList);
-            oldOrderData.get(i).setOrderProducts(orderProducts);
-            oldOrderData.get(i).setOrderTotalPrice(orderTotal);
-        }
-
-        // GET THE DATE CREATED AND DATE UPDATED FROM THE ORDER TABLE
-        for (int i = 0; i < userOrders.size(); i++) {
-            ArrayList<Orders> orderList = new ArrayList();
-            // product id list
-            Cursor cursor1 = dbManager.fetch(DBDefs.Order.TABLE_NAME,
-                    new String[]{DBDefs.Order.C_DATE_CREATED, DBDefs.Order.C_DATE_UPDATED, DBDefs.Order.C_STATUS},
-                    DBDefs.Product_Order.C_ORDER_ID + " like ?",
-                    new String[]{userOrders.get(i).getOrderID().toString()},
-                    null, null, null, null);
+        if (cursor.getCount() > 0) {
+            ArrayList<UserOrders> userOrders = new ArrayList();
             do {
-                Orders order = new Orders();
-                order.setDateCreated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_CREATED)));
-                order.setDateUpdated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_UPDATED)));
-                order.setStatus(cursor1.getInt(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_STATUS)));
-                order.setID(userOrders.get(i).getOrderID());
-                orderList.add(order);
-            } while (cursor1.moveToNext());
-            // convert the data to show the current date and the order date in string form
-            String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
-            String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
-            String orderStatus = "Status: " + orderList.get(0).getStatus();
-            oldOrderData.get(i).setOrderDate(orderDate);
-            oldOrderData.get(i).setOrderUpdateDate(orderUpdated);
-            oldOrderData.get(i).setOrderStatus(orderStatus);
+                UserOrders userOrder = new UserOrders();
+                userOrder.setOrderID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_ORDER_ID)));
+                userOrder.setUserID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_USER_ID)));
+                userOrders.add(userOrder);
+            } while (cursor.moveToNext());
+            for (int i = 0; i < userOrders.size(); i++) {
+                OldOrderData oldData = new OldOrderData();
+                oldOrderData.add(oldData);
+            }
+
+            // GET ALL OF THE PRODUCTS FOR EACH OF THE ORDERS I JUST SELECTED & GET THE PRICE
+            for (int i = 0; i < userOrders.size(); i++) {
+                ArrayList<Products> productList = new ArrayList();
+                // product id list
+                Cursor cursor2 = dbManager.fetch(DBDefs.Product_Order.TABLE_NAME,
+                        new String[]{DBDefs.Product_Order.C_PRODUCT_ID, DBDefs.Product_Order.C_ORDER_ID},
+                        DBDefs.Product_Order.C_ORDER_ID + " like ?",
+                        new String[]{userOrders.get(i).getOrderID().toString()},
+                        null, null, null, null);
+                do {
+                    // product info list
+                    Cursor cursor3 = dbManager.fetch(DBDefs.Product.TABLE_NAME,
+                            new String[]{DBDefs.Product.C_PRODUCT_ID, DBDefs.Product.C_PRODUCT_NAME,
+                                    DBDefs.Product.C_PRICE},
+                            DBDefs.Product.C_PRODUCT_ID + " like ?",
+                            new String[]{cursor2.getString(cursor2.getColumnIndexOrThrow(DBDefs.Product_Order.C_PRODUCT_ID))},
+                            null, null, null, null);
+                    do {
+                        Products products = new Products();
+                        products.setName(cursor3.getString(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
+                        products.setPrice(cursor3.getFloat(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
+                        products.setID(cursor3.getInt(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_ID)));
+                        productList.add(products);
+                    } while (cursor3.moveToNext());
+                } while (cursor2.moveToNext());
+                // take the generated product list and convert it to a string of the correct type
+                // and also turn this list into the total cost
+                String orderProducts = convertProductListToString(productList);
+                String orderTotal = convertProductListToTotalString(productList);
+                oldOrderData.get(i).setOrderProducts(orderProducts);
+                oldOrderData.get(i).setOrderTotalPrice(orderTotal);
+            }
+
+            // GET THE DATE CREATED AND DATE UPDATED FROM THE ORDER TABLE
+            for (int i = 0; i < userOrders.size(); i++) {
+                ArrayList<Orders> orderList = new ArrayList();
+                // product id list
+                Cursor cursor1 = dbManager.fetch(DBDefs.Order.TABLE_NAME,
+                        new String[]{DBDefs.Order.C_DATE_CREATED, DBDefs.Order.C_DATE_UPDATED, DBDefs.Order.C_STATUS},
+                        DBDefs.Product_Order.C_ORDER_ID + " like ?",
+                        new String[]{userOrders.get(i).getOrderID().toString()},
+                        null, null, null, null);
+                do {
+                    Orders order = new Orders();
+                    order.setDateCreated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_CREATED)));
+                    order.setDateUpdated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_UPDATED)));
+                    order.setStatus(cursor1.getInt(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_STATUS)));
+                    order.setID(userOrders.get(i).getOrderID());
+                    orderList.add(order);
+                } while (cursor1.moveToNext());
+                // convert the data to show the current date and the order date in string form
+                String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
+                String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
+                String orderStatus = "Status: " + orderList.get(0).getStatus();
+                oldOrderData.get(i).setOrderDate(orderDate);
+                oldOrderData.get(i).setOrderUpdateDate(orderUpdated);
+                oldOrderData.get(i).setOrderStatus(orderStatus);
+            }
         }
 
         adapter = new OldOrdersAdapter(getActivity(), getContext(), oldOrderData);

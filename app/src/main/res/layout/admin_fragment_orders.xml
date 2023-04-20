@@ -19,32 +19,20 @@
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:text="@string/category_title"
+        android:text="@string/username_hint"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_User_Spinner" />
 
-    <TextView
-        android:id="@+id/admin_categoryDescription_Text"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/admin_Orders_RecyclerView"
         android:layout_width="400dp"
-        android:layout_height="50dp"
-        android:text="@string/category_description"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:autoSizeMaxTextSize="20sp"
-        app:autoSizeTextType="uniform"
+        android:layout_height="600dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_UserName_Text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/admin_Orders_RecyclerView"
-        android:layout_width="400dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_categoryDescription_Text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

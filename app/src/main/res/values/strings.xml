@@ -56,4 +56,20 @@
     <!-- recycler view items -->
     <string name="remove_item_button">-</string>
 
+
+    <!-- ADMIN STRINGS -->
+    <!-- NEW ITEM -->
+    <string name="admin_newitem_text">New</string>
+    <string name="admin_description_hint">Description</string>
+    <string name="admin_price_hint">Price</string>
+    <string name="admin_category_hint">Category</string>
+    <string name="admin_create_button">Create</string>
+
+    <!-- UPDATE ITEM -->
+    <string name="admin_updateitem_text">Update</string>
+    <string name="admin_delete_button">Delete</string>
+
+    <!-- EDIT USER -->
+    <string name="admin_edituser_text">Edit User</string>
+
 </resources>
