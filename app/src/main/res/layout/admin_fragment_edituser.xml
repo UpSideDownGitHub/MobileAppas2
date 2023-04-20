@@ -7,7 +7,7 @@
     tools:context=".Register">
 
     <TextView
-        android:id="@+id/admin_updateItemTitle_textView"
+        android:id="@+id/admin_updateItemTitle_textView_user"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/admin_productnameupdate_entry"
+        android:id="@+id/admin_productnameupdate_entry_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -28,10 +28,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_updateItemTitle_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_updateItemTitle_textView_user" />
 
     <EditText
-        android:id="@+id/admin_productDescriptionUpdate_entry"
+        android:id="@+id/admin_productDescriptionUpdate_entry_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -40,10 +40,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry_user" />
 
     <EditText
-        android:id="@+id/registerEmail_editText"
+        android:id="@+id/registerEmail_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -52,10 +52,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry_user" />
 
     <EditText
-        android:id="@+id/registerAddress_editText"
+        android:id="@+id/registerAddress_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -64,10 +64,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmail_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail_editText_user" />
 
     <EditText
-        android:id="@+id/registerPostcode_editText"
+        android:id="@+id/registerPostcode_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -76,10 +76,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText_user" />
 
     <EditText
-        android:id="@+id/registerPhoneNumber_editText"
+        android:id="@+id/registerPhoneNumber_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -89,35 +89,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText_user" />
 
     <Button
-        android:id="@+id/admin_cancelNewProductUpdate_Button"
+        android:id="@+id/admin_cancelNewProductUpdate_Button_user"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="75dp"
         android:text="@string/cancel_userinfo_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/admin_DeleteUser_Button"
+        android:id="@+id/admin_DeleteUser_Button_user"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
         android:text="@string/admin_delete_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/admin_UpdateProduct_Button"
-        app:layout_constraintStart_toEndOf="@+id/admin_cancelNewProductUpdate_Button" />
+        app:layout_constraintBottom_toBottomOf="@+id/admin_cancelNewProductUpdate_Button_user"
+        app:layout_constraintEnd_toStartOf="@+id/admin_UpdateProduct_Button_user"
+        app:layout_constraintStart_toEndOf="@+id/admin_cancelNewProductUpdate_Button_user" />
 
     <Button
-        android:id="@+id/admin_UpdateProduct_Button"
+        android:id="@+id/admin_UpdateProduct_Button_user"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
         android:text="@string/admin_updateitem_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/admin_DeleteUser_Button_user"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

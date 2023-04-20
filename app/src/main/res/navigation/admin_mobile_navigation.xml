@@ -33,4 +33,9 @@
         android:name="com.example.mobileappas2.admin_ui.shop.editProduct.EditProductFragment"
         android:label="@string/admin_navbar_1"
         tools:layout="@layout/admin_fragment_updateproduct" />
+    <fragment
+        android:id="@+id/navigation_admin_edit_user"
+        android:name="com.example.mobileappas2.admin_ui.user.edituser.AdminEditUserFragment"
+        android:label="@string/admin_navbar_1"
+        tools:layout="@layout/admin_fragment_edituser" />
 </navigation>

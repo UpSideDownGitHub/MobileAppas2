@@ -177,7 +177,6 @@ limit: limit the number of results to return
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.Product.C_PRODUCT_NAME, name);
         contentValue.put(DBDefs.Product.C_PRODUCT_DESCRIPTION, description);
-        contentValue.put(DBDefs.Product.C_PRODUCT_DATE_CREATED, dateCreated);
         contentValue.put(DBDefs.Product.C_PRODUCT_DATE_UPDATED, dateUpdated);
         contentValue.put(DBDefs.Product.C_PRICE, price);
         contentValue.put(DBDefs.Product.C_LIST_PRICE, listPrice);
