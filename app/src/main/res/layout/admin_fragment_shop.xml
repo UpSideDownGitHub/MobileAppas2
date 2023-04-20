@@ -7,7 +7,7 @@
     tools:context=".ui.shop.ShopFragment">
 
     <Spinner
-        android:id="@+id/admin_User_Spinner"
+        android:id="@+id/admin_Shop_Spinner"
         android:layout_width="409dp"
         android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/admin_UserName_Text"
+        android:id="@+id/admin_CategoryName_Text"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -24,7 +24,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_User_Spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_Shop_Spinner" />
 
     <TextView
         android:id="@+id/admin_categoryDescription_Text"
@@ -37,10 +37,10 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_UserName_Text" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_CategoryName_Text" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/admin_Orders_RecyclerView"
+        android:id="@+id/admin_Products_RecyclerView"
         android:layout_width="400dp"
         android:layout_height="550dp"
         android:layout_marginTop="10dp"
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="75dp"
         android:clickable="true"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"

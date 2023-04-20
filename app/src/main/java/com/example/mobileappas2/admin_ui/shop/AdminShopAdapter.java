@@ -1,6 +1,7 @@
-package com.example.mobileappas2.ui.shop;
+package com.example.mobileappas2.admin_ui.shop;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileappas2.Database.DataHolders.Products;
@@ -17,10 +19,10 @@ import com.example.mobileappas2.ui.basket.BasketData;
 
 import java.util.ArrayList;
 
-public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2> {
+public class AdminShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.admin_ui.shop.AdminShopAdapter.ViewHolder2> {
 
     // Private variables
-    private ArrayList<ShopDataHolder> shopDataHolder;
+    private ArrayList<AdminShopData> shopData;
     private Context context;
     private FragmentActivity activity;
     // Public variables
@@ -29,9 +31,9 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
     /*
      * Constructor for initialization
      */
-    public ShopAdapter(FragmentActivity givenActivity, Context context, ArrayList givenItems) {
+    public AdminShopAdapter(FragmentActivity givenActivity, Context context, ArrayList givenItems) {
         this.context = context;
-        this.shopDataHolder = givenItems;
+        this.shopData = givenItems;
         this.activity = givenActivity;
     }
 
@@ -40,25 +42,26 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
      */
     @NonNull
     @Override
-    public com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.mobileappas2.admin_ui.shop.AdminShopAdapter.ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create the new viewHolder and return it
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_item_fragment, parent, false);
-        com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2 viewHolder = new com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_shop_item_fragment, parent, false);
+        AdminShopAdapter.ViewHolder2 viewHolder = new com.example.mobileappas2.admin_ui.shop.AdminShopAdapter.ViewHolder2(view);
 
         view.setOnClickListener(v -> {
             // get the position of the adapter
             globalPosition = viewHolder.getAbsoluteAdapterPosition();
             int pos = globalPosition;
             // get the index of the item pressed in the note list
-            int index = shopDataHolder.indexOf(shopDataHolder.get(pos));
+            int index = shopData.indexOf(shopData.get(pos));
             // set the current index in shared preferences
             //Log.i("DEBUG", "Current Item Index: " + index);
-            // need to find the data in the database and then add it to the basket
-            Products products = new Products();
-            products.setName(shopDataHolder.get(index).getTitle());
-            products.setPrice(shopDataHolder.get(index).getPrice());
-            products.setID(shopDataHolder.get(index).getID());
-            BasketData.addProduct(products);
+
+            // NEED TO OPEN THE EDIT WINDOW WITH THIS PRODUCT
+            SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("currentProductID", shopData.get(index).getID());
+            editor.apply();
+            Navigation.findNavController(view).navigate(R.id.navigation_admin_edit_product);
         });
 
         return viewHolder;
@@ -68,9 +71,9 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
      * Bind the date to the specified position on screen
      */
     @Override
-    public void onBindViewHolder(@NonNull com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2 holder, int position) {
+    public void onBindViewHolder(@NonNull com.example.mobileappas2.admin_ui.shop.AdminShopAdapter.ViewHolder2 holder, int position) {
         // get the date at the current position
-        final ShopDataHolder quizDataHolder1 = shopDataHolder.get(position);
+        final AdminShopData quizDataHolder1 = shopData.get(position);
         // set the name, score, and date from the data at the specified position
         holder.title.setText(quizDataHolder1.getTitle());
         holder.description.setText(quizDataHolder1.getDescription());
@@ -82,7 +85,7 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
      */
     @Override
     public int getItemCount() {
-        return shopDataHolder.size();
+        return shopData.size();
     }
 
     /*
@@ -99,22 +102,22 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
         public ViewHolder2(View view) {
             super(view);
             // get all of the text views
-            title = (TextView) view.findViewById(R.id.title_BasketItem_Text);
-            description = (TextView) view.findViewById(R.id.description_ShopItem_Text);
-            price = (TextView) view.findViewById(R.id.price_BasketItem_Text);
+            title = (TextView) view.findViewById(R.id.admin_title_BasketItem_Text);
+            description = (TextView) view.findViewById(R.id.admin_description_ShopItem_Text);
+            price = (TextView) view.findViewById(R.id.admin_price_BasketItem_Text);
         }
     }
 
     /*
      * clear the list of items in the current list
      */
-    public void clearList() {shopDataHolder.clear();}
+    public void clearList() {shopData.clear();}
 
     /*
      * add an item to the list of items to show on the recycler view
      */
     public void addValue(String value1, String value2, Float value3, Integer value4) {
-        shopDataHolder.add(new ShopDataHolder(value1, value2, value3, value4));
+        shopData.add(new AdminShopData(value1, value2, value3, value4));
     }
 
     /*

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/admin_mobile_navigation"
     app:startDestination="@+id/navigation_admin_shop">
     <fragment
         android:id="@+id/navigation_admin_shop"
@@ -21,4 +21,16 @@
         android:name="com.example.mobileappas2.admin_ui.order.AdminOrderFragment"
         android:label="@string/admin_navbar_3"
         tools:layout="@layout/admin_fragment_orders" />
+
+    <fragment
+        android:id="@+id/navigation_admin_new_product"
+        android:name="com.example.mobileappas2.admin_ui.shop.newproduct.NewProductFragment"
+        android:label="@string/admin_navbar_1"
+        tools:layout="@layout/admin_fragment_newproduct" />
+
+    <fragment
+        android:id="@+id/navigation_admin_edit_product"
+        android:name="com.example.mobileappas2.admin_ui.shop.editProduct.EditProductFragment"
+        android:label="@string/admin_navbar_1"
+        tools:layout="@layout/admin_fragment_updateproduct" />
 </navigation>

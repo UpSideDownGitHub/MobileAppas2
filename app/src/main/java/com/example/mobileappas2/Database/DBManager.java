@@ -218,8 +218,9 @@ limit: limit the number of results to return
     }
 
     // Delete
-    public void delete(Integer ID,String tableName, String IDName, String[] whereArgs) {
-        this.database.delete(tableName, IDName + ID, whereArgs);
+    public void delete(String tableName, String IDName, String[] whereArgs) {
+        this.database.delete(tableName, IDName + "=?", whereArgs);
+        //                   "Product",            "ID = ?"     "String[]{1}"
     }
 
     public void purgeDatabase()

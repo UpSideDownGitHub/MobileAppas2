@@ -24,10 +24,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button cancelButton = findViewById(R.id.admin_UpdateProduct_Button);
+        Button cancelButton = findViewById(R.id.cancelRegistraction_Button);
         cancelButton.setOnClickListener(view -> cancel());
 
-        Button registerButton = findViewById(R.id.admin_cancelNewProductUpdate_Button);
+        Button registerButton = findViewById(R.id.registerUser_Button);
         registerButton.setOnClickListener(view -> register());
     }
 
@@ -39,9 +39,9 @@ public class Register extends AppCompatActivity {
 
     public void register() {
         // save the new data to the database and then return to the main screen
-        EditText name = findViewById(R.id.admin_productnameupdate_entry);
-        EditText password = findViewById(R.id.admin_productDescriptionUpdate_entry);
-        EditText re_password = findViewById(R.id.admin_productPriceUpdate_Entry);
+        EditText name = findViewById(R.id.registerName_editText);
+        EditText password = findViewById(R.id.registerPassword_editText);
+        EditText re_password = findViewById(R.id.registerRePassword_editText);
         EditText email = findViewById(R.id.registerEmail_editText);
         EditText re_email = findViewById(R.id.registerReEmail_editText);
         EditText address = findViewById(R.id.registerAddress_editText);
