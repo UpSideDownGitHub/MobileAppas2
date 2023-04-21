@@ -31,20 +31,6 @@ public class Database extends SQLiteOpenHelper
         db.execSQL(DBDefs.Product.CREATE_TABLE);
         db.execSQL(DBDefs.User_Order.CREATE_TABLE);
         db.execSQL(DBDefs.Product_Order.CREATE_TABLE);
-
-        initiliseDatabase();
-    }
-
-    public void initiliseDatabase() {
-        DBManager dbManager = new DBManager(curContext);
-        dbManager.open();
-        dbManager.purgeDatabase();
-
-        // INSERTING INITIAL CATEGORIES
-        dbManager.insert("All", "All Items");
-        dbManager.insert("Misc", "the random items that we have");
-
-        dbManager.close();
     }
 
     @Override

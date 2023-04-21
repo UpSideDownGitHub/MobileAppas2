@@ -54,11 +54,13 @@ public class AdminOrderFragment extends Fragment {
         dbManager.close();
 
         // convert data in database to a usable list of strings
-        do {
-            String name = new String();
-            name = cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
-            playerNames.add(name);
-        } while (cursor.moveToNext());
+        if (cursor.getCount() > 0) {
+            do {
+                String name = new String();
+                name = cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
+                playerNames.add(name);
+            } while (cursor.moveToNext());
+        }
         playerNames.add(0, "All");
 
         // setup the spinner

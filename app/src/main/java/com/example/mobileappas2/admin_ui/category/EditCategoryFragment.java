@@ -1,5 +1,6 @@
 package com.example.mobileappas2.admin_ui.category;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,7 +39,88 @@ public class EditCategoryFragment extends Fragment {
         View root = binding.getRoot();
 
         // SET UP THE SPINNER TO SHOW THE CATEGORIES AVAILABLE
-        // open the database
+        updateSpinner();
+
+        // ADD LISTENERS TO THE BUTTONS
+        Button newButton = binding.editCatNewButton;
+        Button backButton = binding.editCatBackButton;
+        Button updateButton = binding.editCatUpdateButton;
+        Button deleteButton = binding.editCatDeleteButton;
+        backButton.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.navigation_admin_shop);
+        });
+        newButton.setOnClickListener(view -> newCateogry());
+        updateButton.setOnClickListener(view -> updateCategory());
+        deleteButton.setOnClickListener(view -> deleteCategory());
+
+        return root;
+    }
+
+    public void newCateogry()
+    {
+        // GET THE NAME AND DESCRIPTION FROM THE ENTRY POINTS
+        String name = binding.editCatNameEntry.getText().toString();
+        String desc = binding.editCatDescEntry.getText().toString();
+
+        // CREATE A NEW CATEGORY
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+        dbManager.insert(name, desc);
+        dbManager.close();
+
+        updateSpinner();
+    }
+    public void updateCategory()
+    {
+        if (currentCatID == 0 || currentCatID == 1)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Cant Edit This Categories",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // GET THE NAME AND DESCRIPTION FROM THE ENTRY POINTS
+        String name = binding.editCatNameEntry.getText().toString();
+        String desc = binding.editCatDescEntry.getText().toString();
+
+        // CREATE A NEW CATEGORY
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+        dbManager.update(name, desc, currentCatID, null);
+        dbManager.close();
+
+        updateSpinner();
+    }
+    public void deleteCategory()
+    {
+        if (currentCatID == 0 || currentCatID == 1)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Cant Delete This Categories",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // DELETE THE CATEGORY
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBDefs.Product.C_CATEGORY_ID, 1);
+        dbManager.update(DBDefs.Product.TABLE_NAME,
+                contentValues,
+                "category_id=?",
+                new String[]{Integer.toString(currentCatID)});
+
+        // delete the actual category
+        dbManager.delete(DBDefs.Category.TABLE_NAME, "category_id",
+                new String[]{Integer.toString(currentCatID + 1)});
+        dbManager.close();
+        updateSpinner();
+    }
+
+    public void updateSpinner()
+    {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         ArrayList<String> catNames = new ArrayList();
@@ -54,7 +138,6 @@ public class EditCategoryFragment extends Fragment {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_NAME));
             catNames.add(name);
         } while (cursor.moveToNext());
-        catNames.add(0, "All");
 
         // setup the spinner
         Spinner spinner = (Spinner) binding.editCatSpinner;
@@ -74,10 +157,7 @@ public class EditCategoryFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
         });
-
-        
-
-        return root;
+        dbManager.close();
     }
 
     @Override

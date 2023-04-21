@@ -58,6 +58,11 @@ public class AdminShopFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.navigation_admin_new_product);
         });
 
+        FloatingActionButton newCategoryButton = binding.adminNewCategoryActionButton;
+        newCategoryButton.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.navigation_admin_edit_category);
+        });
+
         // Spinner
         // open the database
         DBManager dbManager = new DBManager(root.getContext());
@@ -71,6 +76,8 @@ public class AdminShopFragment extends Fragment {
         dbManager.close();
 
         // convert data in database to a usable list of strings
+        categoryTitles.clear();
+        categoryDescriptions.clear();
         do {
             String cat = new String();
             String cat2 = new String();

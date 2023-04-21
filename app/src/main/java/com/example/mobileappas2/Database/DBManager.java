@@ -131,6 +131,12 @@ limit: limit the number of results to return
     /*
     Below are the update statements for each of the databases that will allow me to update data within the table
      */
+    // genral Update
+    public int update(String table, ContentValues contentValue, String whereClause, String[] whereArgs)
+    {
+        return this.database.update(table, contentValue, whereClause, whereArgs);
+    }
+
     // Category
     public int update(String name,
                        String description,
@@ -139,7 +145,7 @@ limit: limit the number of results to return
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.Category.C_NAME, name);
         contentValue.put(DBDefs.Category.C_DESCRIPTION, description);
-        return this.database.update(DBDefs.Category.TABLE_NAME, contentValue, "user_id = " + ID, whereArgs);
+        return this.database.update(DBDefs.Category.TABLE_NAME, contentValue, "category_id = " + ID, whereArgs);
     }
     // Order
     public int update(Integer ID,

@@ -19,6 +19,19 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        // check if there are the correct values in the data base if not then initilise it
+        DBManager dbManager = new DBManager(this);
+        dbManager.open();
+        Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
+                new String[]{DBDefs.Category.C_CATEGORY_ID},
+                null,null,null,null,null,null);
+        if (cursor.getCount() < 1)
+        {
+            dbManager.insert("All", "All Items");
+            dbManager.insert("Misc", "Random Items");
+        }
+        dbManager.close();
+
         // attach a listener to the login button
         Button loginButton = findViewById(R.id.login_Button);
         loginButton.setOnClickListener(view -> checkLogin());

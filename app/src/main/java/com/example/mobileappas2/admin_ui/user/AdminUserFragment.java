@@ -40,13 +40,15 @@ public class AdminUserFragment extends Fragment {
 
 
         ArrayList<AdminUserData> users = new ArrayList();
-        do {
-            AdminUserData user = new AdminUserData();
-            user.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
-            user.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS)));
-            user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));
-            users.add(user);
-        } while (cursor.moveToNext());
+        if (cursor.getCount() > 0) {
+            do {
+                AdminUserData user = new AdminUserData();
+                user.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
+                user.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS)));
+                user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));
+                users.add(user);
+            } while (cursor.moveToNext());
+        }
 
 
         adapter = new AdminUsersAdapter(getActivity(), getContext(), users);
