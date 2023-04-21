@@ -103,10 +103,12 @@ public class AdminOrderFragment extends Fragment {
                     new String[]{Integer.toString(userID)},
                     null, null, null, null);
             String name;
-            do {
-                name = cur.getString(cur.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
-            } while (cur.moveToNext());
-            binding.adminUserNameText.setText(name);
+            if (cur.getCount() > 0) {
+                do {
+                    name = cur.getString(cur.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
+                } while (cur.moveToNext());
+                binding.adminUserNameText.setText(name);
+            }
         }
 
         Cursor cursor;

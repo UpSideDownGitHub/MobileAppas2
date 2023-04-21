@@ -13,9 +13,12 @@ public class Database extends SQLiteOpenHelper
     public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "Database.db";
 
+    public Context curContext;
+
     public Database (Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        curContext = context;
     }
 
 
@@ -28,6 +31,20 @@ public class Database extends SQLiteOpenHelper
         db.execSQL(DBDefs.Product.CREATE_TABLE);
         db.execSQL(DBDefs.User_Order.CREATE_TABLE);
         db.execSQL(DBDefs.Product_Order.CREATE_TABLE);
+
+        initiliseDatabase();
+    }
+
+    public void initiliseDatabase() {
+        DBManager dbManager = new DBManager(curContext);
+        dbManager.open();
+        dbManager.purgeDatabase();
+
+        // INSERTING INITIAL CATEGORIES
+        dbManager.insert("All", "All Items");
+        dbManager.insert("Misc", "the random items that we have");
+
+        dbManager.close();
     }
 
     @Override

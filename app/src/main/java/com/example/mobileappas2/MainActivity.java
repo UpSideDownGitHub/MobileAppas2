@@ -23,19 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    private void saveToDB()
-    {
-        SQLiteDatabase database = new Database(this).getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DBDefs.User.C_FULL_NAME, "Test");
-        values.put(DBDefs.User.C_PASSWORD, "Test 2");
-
-        long newRowId = database.insert(DBDefs.User.TABLE_NAME, null, values);
-
-        Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_LONG).show();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

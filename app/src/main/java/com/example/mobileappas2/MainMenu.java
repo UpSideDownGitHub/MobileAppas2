@@ -14,36 +14,6 @@ import com.example.mobileappas2.Database.DBManager;
 import com.example.mobileappas2.Database.DataHolders.Users;
 
 public class MainMenu extends AppCompatActivity {
-
-    public void insertDummyData()
-    {
-        DBManager dbManager = new DBManager(this);
-        dbManager.open();
-
-        dbManager.purgeDatabase();
-
-        // INSERTING A CATEGORY
-        dbManager.insert("All", "All Items");
-        dbManager.insert("Fresh", "fresh food");
-        dbManager.insert("Frozen", "frozen food");
-        dbManager.insert("Drink", "including: juice, soft, & alcohol");
-        dbManager.insert("Snack", "Crisps, Chocolate, & sweets");
-        dbManager.insert("Misc", "the random items that we have");
-
-        // INSERTING A PRODUCT
-        dbManager.insert("Apple", "fresh apples straight from the tree",
-                "10/10/2000", "10/10/2020", new Float(0.5f), new Float(0.5f),
-                new Float(0.5f), 1);
-        dbManager.insert("Walkers", "crisps straight from the factory",
-                "10/10/2000", "10/10/2020", new Float(1.0f), new Float(1.0f),
-                new Float(1.0f), 4);
-        dbManager.insert("hair Dryer", "for frying hair",
-                "10/10/2000", "10/10/2020", new Float(2.5f), new Float(2.5f),
-                new Float(2.5f), 5);
-
-        dbManager.close();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +26,6 @@ public class MainMenu extends AppCompatActivity {
         // attach a listener to the register button
         Button registerButton = findViewById(R.id.register_Button);
         registerButton.setOnClickListener(view -> loadRegisterScreen());
-
-        Button TEST = findViewById(R.id.TESTDATASPAWN);
-        TEST.setOnClickListener(view -> {
-            insertDummyData();
-        });
     }
 
     public void loadRegisterScreen()
