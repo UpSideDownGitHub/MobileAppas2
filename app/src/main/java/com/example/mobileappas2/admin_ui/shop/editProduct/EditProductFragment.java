@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileappas2.Database.DBDefs;
 import com.example.mobileappas2.Database.DBManager;
 import com.example.mobileappas2.Database.DataHolders.Products;
+import com.example.mobileappas2.Database.DataHolders.Users;
 import com.example.mobileappas2.R;
 import com.example.mobileappas2.databinding.AdminFragmentUpdateproductBinding;
 import com.example.mobileappas2.ui.shop.ShopAdapter;
@@ -58,10 +60,35 @@ public class EditProductFragment extends Fragment {
         deleteButton.setOnClickListener(view -> deleteProduct());
         updateButton.setOnClickListener(view -> updateProduct());
 
-        // SET UP THE SPINNER TO SHOW THE CATEGORIES AVAILABLE
         // open the database
         DBManager dbManager = new DBManager(root.getContext());
         dbManager.open();
+        // load the previous information to show as the initial values
+        // GET ALL OF THE TEXT THE USER HAS ENTERED
+        TextView name = binding.adminProductnameupdateEntry;
+        TextView description = binding.adminProductDescriptionUpdateEntry;
+        TextView price = binding.adminProductPriceUpdateEntry;
+
+        // GET THE CURRENT DATA HELD IN THE DATABASE FOR THIS USER
+        Products product = new Products();
+        Cursor cur = dbManager.fetch(DBDefs.Product.TABLE_NAME,
+                new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
+                        DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID},
+                DBDefs.Product.C_PRODUCT_ID + " like ?",
+                new String[]{Integer.toString(productID)},
+                null, null, null, null);
+        do {
+            product.setName(cur.getString(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
+            product.setDescription(cur.getString(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_DESCRIPTION)));
+            product.setPrice(cur.getFloat(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
+            product.setCategoryID(cur.getInt(cur.getColumnIndexOrThrow(DBDefs.Product.C_CATEGORY_ID)));
+            product.setID(productID);
+        }while(cur.moveToNext());
+
+        name.setText(product.getName());
+        description.setText(product.getDescription());
+        price.setText(product.getPrice().toString());
+
         // load the data from the database
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
                 new String[]{DBDefs.Category.C_NAME},
@@ -70,6 +97,7 @@ public class EditProductFragment extends Fragment {
                 null, null, null, null);
         dbManager.close();
 
+        // SET UP THE SPINNER TO SHOW THE CATEGORIES AVAILABLE
         // convert data in database to a usable list of strings
         do {
             String cat = new String();
@@ -85,6 +113,7 @@ public class EditProductFragment extends Fragment {
                 categoryTitles);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(product.getCategoryID());
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -106,7 +135,27 @@ public class EditProductFragment extends Fragment {
         // GET ALL OF THE DATA TO BE UPDATED IN THE DATABASE
         String name = binding.adminProductnameupdateEntry.getText().toString();
         String description = binding.adminProductDescriptionUpdateEntry.getText().toString();
-        Float price = Float.parseFloat(binding.adminProductPriceUpdateEntry.getText().toString());
+        Float price = new Float(0);
+        try {
+            price = Float.parseFloat(binding.adminProductPriceUpdateEntry.getText().toString());
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Please Enter a Valid Number",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (name.isEmpty() || description.isEmpty())
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Please Enter All Values",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

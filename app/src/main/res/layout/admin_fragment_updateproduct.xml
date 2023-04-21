@@ -7,6 +7,15 @@
     tools:context=".Register">
 
     <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username_hint"
+        app:layout_constraintBottom_toTopOf="@+id/admin_productnameupdate_entry"
+        app:layout_constraintEnd_toEndOf="@+id/admin_productnameupdate_entry"
+        app:layout_constraintStart_toStartOf="@+id/admin_productnameupdate_entry" />
+
+    <TextView
         android:id="@+id/admin_updateItemTitle_textView"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -17,6 +26,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_description_hint"
+        app:layout_constraintEnd_toEndOf="@+id/admin_productDescriptionUpdate_entry"
+        app:layout_constraintStart_toStartOf="@+id/admin_productDescriptionUpdate_entry"
+        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry" />
 
     <EditText
         android:id="@+id/admin_productnameupdate_entry"
@@ -30,11 +48,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_updateItemTitle_textView" />
 
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_price_hint"
+        app:layout_constraintEnd_toEndOf="@+id/admin_productPriceUpdate_Entry"
+        app:layout_constraintStart_toStartOf="@+id/admin_productPriceUpdate_Entry"
+        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry" />
+
     <EditText
         android:id="@+id/admin_productDescriptionUpdate_entry"
         android:layout_width="250dp"
         android:layout_height="150dp"
-        android:layout_marginTop="10dp"
         android:autoText="true"
         android:ellipsize="none"
         android:ems="10"
@@ -45,28 +71,35 @@
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_category_hint"
+        app:layout_constraintEnd_toEndOf="@+id/admin_Update_Spinner"
+        app:layout_constraintStart_toStartOf="@+id/admin_Update_Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/admin_productPriceUpdate_Entry" />
 
     <EditText
         android:id="@+id/admin_productPriceUpdate_Entry"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/admin_price_hint"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <Spinner
         android:id="@+id/admin_Update_Spinner"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productPriceUpdate_Entry" />
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <Button
         android:id="@+id/admin_cancelNewProductUpdate_Button"

@@ -31,7 +31,11 @@ import java.util.ArrayList;
 
 public class EditCategoryFragment extends Fragment {
     private AdminFragmentEditcategoryBinding binding;
-    public int currentCatID;
+    public int currentCatID = 0;
+
+
+    ArrayList<String> catNames = new ArrayList();
+    ArrayList<Categories> categoryList = new ArrayList();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,22 +53,46 @@ public class EditCategoryFragment extends Fragment {
         backButton.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_admin_shop);
         });
-        newButton.setOnClickListener(view -> newCateogry());
+        newButton.setOnClickListener(view -> newCategory());
         updateButton.setOnClickListener(view -> updateCategory());
         deleteButton.setOnClickListener(view -> deleteCategory());
 
         return root;
     }
 
-    public void newCateogry()
+    public void newCategory()
     {
         // GET THE NAME AND DESCRIPTION FROM THE ENTRY POINTS
         String name = binding.editCatNameEntry.getText().toString();
         String desc = binding.editCatDescEntry.getText().toString();
 
+        if (name.isEmpty() || desc.isEmpty())
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Make Sure all fields are filled in",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // CREATE A NEW CATEGORY
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
+
+        Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
+                new String[]{DBDefs.Category.C_CATEGORY_ID},
+                DBDefs.Category.C_NAME + " like ?",
+                new String[]{name},
+                null,null,null,null);
+        if (cursor.getCount() > 0)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "There is already a category with that name",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
         dbManager.insert(name, desc);
         dbManager.close();
 
@@ -84,9 +112,32 @@ public class EditCategoryFragment extends Fragment {
         String name = binding.editCatNameEntry.getText().toString();
         String desc = binding.editCatDescEntry.getText().toString();
 
+        if (name.isEmpty() || desc.isEmpty())
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Make Sure all fields are filled in",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // CREATE A NEW CATEGORY
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
+        Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
+                new String[]{DBDefs.Category.C_CATEGORY_ID},
+                DBDefs.Category.C_NAME + " like ?",
+                new String[]{name},
+                null,null,null,null);
+        if (cursor.getCount() > 0)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "There is already a category with that name",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
         dbManager.update(name, desc, currentCatID, null);
         dbManager.close();
 
@@ -123,11 +174,11 @@ public class EditCategoryFragment extends Fragment {
     {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
-        ArrayList<String> catNames = new ArrayList();
+        catNames = new ArrayList();
 
         // load the data from the database
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
-                new String[]{DBDefs.Category.C_NAME},
+                new String[]{DBDefs.Category.C_NAME, DBDefs.Category.C_CATEGORY_ID},
                 null,
                 null,
                 null, null, null, null);
@@ -137,6 +188,11 @@ public class EditCategoryFragment extends Fragment {
         do {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_NAME));
             catNames.add(name);
+
+            Categories tempCat = new Categories();
+            tempCat.setName(name);
+            tempCat.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Category.C_CATEGORY_ID)));
+            categoryList.add(tempCat);
         } while (cursor.moveToNext());
 
         // setup the spinner
@@ -147,16 +203,45 @@ public class EditCategoryFragment extends Fragment {
                 catNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+        setNameandDescription();
 
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 currentCatID = spinner.getSelectedItemPosition();
+                setNameandDescription();
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
         });
+        dbManager.close();
+    }
+
+    public void setNameandDescription()
+    {
+        TextView name = binding.editCatNameEntry;
+        TextView desc = binding.editCatDescEntry;
+
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+
+        Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
+                new String[]{DBDefs.Category.C_NAME, DBDefs.Category.C_DESCRIPTION},
+                DBDefs.Category.C_CATEGORY_ID + " like ?",
+                new String[]{Integer.toString(categoryList.get(currentCatID).getID())},
+                null,null,null,null);
+        Categories cat = new Categories();
+        if (cursor.getCount() > 0) {
+            do {
+                cat.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_NAME)));
+                cat.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_DESCRIPTION)));
+            } while (cursor.moveToNext());
+
+            name.setText(cat.getName());
+            desc.setText(cat.getDescription());
+        }
+
         dbManager.close();
     }
 

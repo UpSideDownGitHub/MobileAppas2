@@ -4,8 +4,8 @@ public class Users {
     private String fullName, email,
             password, postcode,
             address;
-    private String dateRegistered, dateUpdated;
-    private Integer ID, phoneNumber;
+    private String dateRegistered, dateUpdated, phoneNumber;
+    private Integer ID;
 
 
 
@@ -73,11 +73,11 @@ public class Users {
         this.address = address;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

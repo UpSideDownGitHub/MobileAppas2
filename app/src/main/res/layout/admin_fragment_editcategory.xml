@@ -18,6 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_category_hint"
+        app:layout_constraintBottom_toTopOf="@+id/editCat_Spinner"
+        app:layout_constraintEnd_toEndOf="@+id/editCat_Spinner"
+        app:layout_constraintStart_toStartOf="@+id/editCat_Spinner" />
+
     <Spinner
         android:id="@+id/editCat_Spinner"
         android:layout_width="300dp"
@@ -27,30 +36,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCat_Title_Text" />
 
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/name_entry"
+        app:layout_constraintEnd_toEndOf="@+id/editCat_NameEntry"
+        app:layout_constraintStart_toStartOf="@+id/editCat_NameEntry"
+        app:layout_constraintTop_toBottomOf="@+id/editCat_Spinner" />
+
     <EditText
         android:id="@+id/editCat_NameEntry"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="@string/name_entry"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCat_Spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/admin_description_hint"
+        app:layout_constraintEnd_toEndOf="@+id/editCat_DescEntry"
+        app:layout_constraintStart_toStartOf="@+id/editCat_DescEntry"
+        app:layout_constraintTop_toBottomOf="@+id/editCat_NameEntry" />
 
     <EditText
         android:id="@+id/editCat_DescEntry"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
         android:ems="10"
         android:gravity="start"
         android:hint="@string/admin_description_hint"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCat_NameEntry" />
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
     <Button
         android:id="@+id/editCat_Back_Button"

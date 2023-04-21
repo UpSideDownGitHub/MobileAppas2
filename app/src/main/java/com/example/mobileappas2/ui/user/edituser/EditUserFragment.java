@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,11 @@ import java.time.format.FormatStyle;
 public class EditUserFragment extends Fragment {
 
     private FragmentEdituserBinding binding;
+    public int userID;
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,27 +48,23 @@ public class EditUserFragment extends Fragment {
 
         Button cancelUpdateButton = binding.cancelEditInfoButton;
         cancelUpdateButton.setOnClickListener(view -> cancelUpdate(view));
-        return root;
-    }
 
-    public void updateUserInfo(View view)
-    {
-        // GET THE CURRENT USER ID & OPEN THE DATABASE
-        DBManager dbManager = new DBManager(getContext());
-        dbManager.open();
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        int userID = sharedPref.getInt("userID", 0);
+        userID = sharedPref.getInt("userID", 0);
+
 
         // GET ALL OF THE TEXT THE USER HAS ENTERED
-        String username = binding.usernameEditEditText.getText().toString();
-        String email = binding.emailEditEditText.getText().toString();
-        String password = binding.passwordEditEditText.getText().toString();
-        String postcode = binding.postcodeEditEditText.getText().toString();
-        String address = binding.addressEditEditText.getText().toString();
-        String phoneNumber = binding.phoneNumberEditEditText.getText().toString();
-        String oldPassword = binding.oldpasswordEditText.getText().toString();
+        TextView username = binding.usernameEditEditText;
+        TextView email = binding.emailEditEditText;
+        TextView password = binding.passwordEditEditText;
+        TextView postcode = binding.postcodeEditEditText;
+        TextView address = binding.addressEditEditText;
+        TextView phoneNumber = binding.phoneNumberEditEditText;
+        TextView oldPassword = binding.oldpasswordEditText;
 
         // GET THE CURRENT DATA HELD IN THE DATABASE FOR THIS USER
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
         Users user = new Users();
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD,
@@ -74,31 +76,85 @@ public class EditUserFragment extends Fragment {
         do {
             user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
-            user.setPhoneNumber(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_PHONE_NUMBER)));
+            user.setPhoneNumber(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PHONE_NUMBER)));
             user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_ADDRESS)));
             user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS)));
             user.setPostcode(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_POSTCODE)));
             user.setID(userID);
         }while(cursor.moveToNext());
 
-        if (username.isEmpty())
-            username = user.getFullName();
-        if (email.isEmpty())
-            email = user.getEmail();
-        if (password.isEmpty())
-            password = user.getPassword();
-        if (postcode.isEmpty())
-            postcode = user.getPostcode();
-        if(address.isEmpty())
-            address = user.getAddress();
-        if (phoneNumber.isEmpty())
-            phoneNumber = user.getPhoneNumber().toString();
+        username.setText(user.getFullName());
+        password.setText(user.getPassword());
+        phoneNumber.setText(user.getPhoneNumber());
+        address.setText(user.getAddress());
+        email.setText(user.getEmail());
+        postcode.setText(user.getPostcode());
+
+        dbManager.close();
+
+        return root;
+    }
+
+    public void updateUserInfo(View view)
+    {
+        // GET THE CURRENT USER ID & OPEN THE DATABASE
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+
+
+        // GET ALL OF THE TEXT THE USER HAS ENTERED
+        String username = binding.usernameEditEditText.getText().toString();
+        String email = binding.emailEditEditText.getText().toString();
+        String password = binding.passwordEditEditText.getText().toString();
+        String postcode = binding.postcodeEditEditText.getText().toString();
+        String address = binding.addressEditEditText.getText().toString();
+        String phoneNumber = binding.phoneNumberEditEditText.getText().toString();
+        String oldPassword = binding.oldpasswordEditText.getText().toString();
+
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
+                address.isEmpty() || phoneNumber.isEmpty() || oldPassword.isEmpty())
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Make Sure No Entries Are Empty",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
 
         if (oldPassword.isEmpty())
         {
             Toast.makeText(
                     getContext(),
                     "Please Enter Old Password",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
+
+        if (!email.matches(EMAIL_PATTERN))
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Please Enter a Valid Email",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
+        if (!postcode.matches("^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"))
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Please Enter a Valid Postcode",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
+        if (!phoneNumber.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"))
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Please Enter a Valid Phone Number",
                     Toast.LENGTH_SHORT).show();
             dbManager.close();
             return;
@@ -112,10 +168,39 @@ public class EditUserFragment extends Fragment {
             date = d.format(dateFormatter);
         }
 
+        Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
+                new String[]{DBDefs.User.C_FULL_NAME},
+                DBDefs.User.C_FULL_NAME + " like ?",
+                new String[]{username},
+                null, null, null, null);
+        if (cursor.getCount() > 0)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "User Name Already Taken",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
+        Cursor cursor2 = dbManager.fetch(DBDefs.User.TABLE_NAME,
+                new String[]{DBDefs.User.C_EMAIL_ADDRESS},
+                DBDefs.User.C_EMAIL_ADDRESS + " like ?",
+                new String[]{email},
+                null, null, null, null);
+        if (cursor2.getCount() > 0)
+        {
+            Toast.makeText(
+                    getContext(),
+                    "Email Already Taken",
+                    Toast.LENGTH_SHORT).show();
+            dbManager.close();
+            return;
+        }
+
         // UPDATE THE CONTENTS OF THE DATABASE
         dbManager.update(username, email, password,
                 postcode, address, date, userID,
-                Integer.parseInt(phoneNumber), null);
+                phoneNumber, null);
         dbManager.close();
 
         // return to the user screen

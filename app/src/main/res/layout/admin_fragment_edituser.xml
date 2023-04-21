@@ -7,6 +7,15 @@
     tools:context=".Register">
 
     <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username_hint"
+        app:layout_constraintBottom_toTopOf="@+id/admin_productnameupdate_entry_user"
+        app:layout_constraintEnd_toEndOf="@+id/admin_productnameupdate_entry_user"
+        app:layout_constraintStart_toStartOf="@+id/admin_productnameupdate_entry_user" />
+
+    <TextView
         android:id="@+id/admin_updateItemTitle_textView_user"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -17,6 +26,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_hint"
+        app:layout_constraintEnd_toEndOf="@+id/admin_productDescriptionUpdate_entry_user"
+        app:layout_constraintStart_toStartOf="@+id/admin_productDescriptionUpdate_entry_user"
+        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry_user" />
 
     <EditText
         android:id="@+id/admin_productnameupdate_entry_user"
@@ -30,66 +48,97 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_updateItemTitle_textView_user" />
 
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_entry"
+        app:layout_constraintEnd_toEndOf="@+id/registerEmail_editText_user"
+        app:layout_constraintStart_toStartOf="@+id/registerEmail_editText_user"
+        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry_user" />
+
     <EditText
         android:id="@+id/admin_productDescriptionUpdate_entry_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/password_entry"
-        android:inputType="textPersonName"
+        android:inputType="textVisiblePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productnameupdate_entry_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/address_entry"
+        app:layout_constraintEnd_toEndOf="@+id/registerAddress_editText_user"
+        app:layout_constraintStart_toStartOf="@+id/registerAddress_editText_user"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail_editText_user" />
 
     <EditText
         android:id="@+id/registerEmail_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/email_entry"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_productDescriptionUpdate_entry_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/postcode_entry"
+        app:layout_constraintEnd_toEndOf="@+id/registerPostcode_editText_user"
+        app:layout_constraintStart_toStartOf="@+id/registerPostcode_editText_user"
+        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText_user" />
 
     <EditText
         android:id="@+id/registerAddress_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/address_entry"
-        android:inputType="textPersonName"
+        android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmail_editText_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phonenumber_entry"
+        app:layout_constraintEnd_toEndOf="@+id/registerPhoneNumber_editText_user"
+        app:layout_constraintStart_toStartOf="@+id/registerPhoneNumber_editText_user"
+        app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText_user" />
 
     <EditText
         android:id="@+id/registerPostcode_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/postcode_entry"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
     <EditText
         android:id="@+id/registerPhoneNumber_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/phonenumber_entry"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
     <Button
         android:id="@+id/admin_cancelNewProductUpdate_Button_user"

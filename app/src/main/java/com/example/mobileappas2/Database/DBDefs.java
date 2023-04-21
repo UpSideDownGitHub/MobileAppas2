@@ -34,7 +34,7 @@ public final class DBDefs
                 C_DATE_UPDATED + " VARCHAR, " +
                 C_POSTCODE + " VARCHAR, " +
                 C_ADDRESS + " VARCHAR, " +
-                C_PHONE_NUMBER + " INTEGER);";
+                C_PHONE_NUMBER + " VARCHAR);";
     }
 
     public static final class Order implements BaseColumns

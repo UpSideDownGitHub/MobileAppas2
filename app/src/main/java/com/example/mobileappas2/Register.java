@@ -3,6 +3,7 @@ package com.example.mobileappas2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobileappas2.Database.DBDefs;
 import com.example.mobileappas2.Database.DBManager;
 
 import java.time.LocalDate;
@@ -19,6 +21,10 @@ import java.time.format.FormatStyle;
 
 public class Register extends AppCompatActivity {
 
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +68,51 @@ public class Register extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+        // need to check if they are all in the right format also need to check if there is anyone else
+        // with the same name and if there is then don't add
+        DBManager dbManager = new DBManager(this);
+        dbManager.open();
+
+        Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
+                new String[]{DBDefs.User.C_FULL_NAME},
+                DBDefs.User.C_FULL_NAME + " like ?",
+                new String[]{name.getText().toString()},
+                null,null,null,null);
+        if (cursor.getCount() > 0)
+        {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Name Already In Use",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!email.getText().toString().matches(EMAIL_PATTERN))
+        {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Please Enter a Valid Email",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!postcode.getText().toString().matches("^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"))
+        {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Please Enter a Valid Postcode",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!phoneNumber.getText().toString().matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"))
+        {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Please Enter a Valid Phone Number",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (!email.getText().toString().equals(re_email.getText().toString())) {
-            Log.i("DEBUG", "Email: " + email.getText().toString() + "2nd Email: " +
-                    re_email.getText().toString());
             Toast.makeText(
                     getApplicationContext(),
                     R.string.register_email_toast,
@@ -79,9 +126,6 @@ public class Register extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
-        DBManager dbManager = new DBManager(this);
-        dbManager.open();
 
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -98,7 +142,7 @@ public class Register extends AppCompatActivity {
                 address.getText().toString(),
                 date,
                 date,
-                Integer.parseInt(phoneNumber.getText().toString()));
+                phoneNumber.getText().toString());
 
         dbManager.close();
 

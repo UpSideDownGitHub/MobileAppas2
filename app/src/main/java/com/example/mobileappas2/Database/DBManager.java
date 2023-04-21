@@ -96,7 +96,7 @@ public class DBManager {
                        String address,
                        String dateRegistered,
                        String dateUpdated,
-                       Integer phoneNumber) {
+                       String phoneNumber) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);
         contentValue.put(DBDefs.User.C_EMAIL_ADDRESS, email);
@@ -209,7 +209,7 @@ limit: limit the number of results to return
                        String address,
                        String dateUpdated,
                        Integer ID,
-                       Integer phoneNumber,
+                       String phoneNumber,
                        String[] whereArgs) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);

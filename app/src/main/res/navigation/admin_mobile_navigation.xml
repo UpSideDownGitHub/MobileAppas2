@@ -43,5 +43,5 @@
         android:id="@+id/navigation_admin_edit_category"
         android:name="com.example.mobileappas2.admin_ui.category.EditCategoryFragment"
         android:label="@string/admin_navbar_4"
-        tools:layout="@layout/admin_fragment_edituser" />
+        tools:layout="@layout/admin_fragment_editcategory" />
 </navigation>
