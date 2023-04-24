@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         // get the current user ID from the intent and save it to shared preferences
         int i = getIntent().getExtras().getInt("playerID");
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);

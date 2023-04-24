@@ -4,16 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.user.UserFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editUser_ActionButton"
+    <TextView
+        android:id="@+id/textView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/shop_title"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/editUser_ActionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editUser_ActionButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:clickable="true"
-        android:src="@drawable/baseline_person_24"
+        android:background="@drawable/edit_user_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +54,6 @@
         android:text="@string/useremail_text"
         android:textAlignment="viewStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_Text" />
 
@@ -62,6 +75,9 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/background_low_alpha"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oldOrders_Text" />

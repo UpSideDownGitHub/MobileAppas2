@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Register">
 
     <TextView
@@ -20,6 +21,8 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="@string/admin_newitem_text"
         android:textAlignment="center"
         android:textSize="40sp"
@@ -31,6 +34,7 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/admin_description_hint"
         app:layout_constraintEnd_toEndOf="@+id/admin_productDescriptionUpdate_entry"
         app:layout_constraintStart_toStartOf="@+id/admin_productDescriptionUpdate_entry"
@@ -52,6 +56,7 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/admin_price_hint"
         app:layout_constraintEnd_toEndOf="@+id/admin_productPriceUpdate_Entry"
         app:layout_constraintStart_toStartOf="@+id/admin_productPriceUpdate_Entry"
@@ -77,6 +82,7 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/admin_category_hint"
         app:layout_constraintEnd_toEndOf="@+id/admin_newItemUpdate_Spinner"
         app:layout_constraintStart_toStartOf="@+id/admin_newItemUpdate_Spinner"
@@ -97,26 +103,42 @@
         android:id="@+id/admin_newItemUpdate_Spinner"
         android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/button_background"
+        android:popupBackground="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/admin_cancelNewProductUpdate_Button"
-        android:layout_width="150dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/admin_createProduct_Button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="75dp"
-        android:text="@string/cancel_userinfo_button"
+        android:background="@drawable/button_background"
+        android:text="@string/admin_create_button"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/admin_createProduct_Button"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:text="@string/admin_create_button"
-        app:layout_constraintBottom_toBottomOf="@+id/admin_cancelNewProductUpdate_Button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:src="@drawable/baseline_expand_more_24"
+        app:layout_constraintBottom_toBottomOf="@+id/admin_newItemUpdate_Spinner"
+        app:layout_constraintEnd_toEndOf="@+id/admin_newItemUpdate_Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

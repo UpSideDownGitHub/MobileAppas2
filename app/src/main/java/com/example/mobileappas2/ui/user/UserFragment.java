@@ -40,7 +40,7 @@ public class UserFragment extends Fragment {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        FloatingActionButton floatingButton = binding.editUserActionButton;
+        Button floatingButton = binding.editUserActionButton;
         floatingButton.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_edituser);
         });
@@ -96,22 +96,24 @@ public class UserFragment extends Fragment {
                         DBDefs.Product_Order.C_ORDER_ID + " like ?",
                         new String[]{userOrders.get(i).getOrderID().toString()},
                         null, null, null, null);
-                do {
-                    // product info list
-                    Cursor cursor3 = dbManager.fetch(DBDefs.Product.TABLE_NAME,
-                            new String[]{DBDefs.Product.C_PRODUCT_ID, DBDefs.Product.C_PRODUCT_NAME,
-                                    DBDefs.Product.C_PRICE},
-                            DBDefs.Product.C_PRODUCT_ID + " like ?",
-                            new String[]{cursor2.getString(cursor2.getColumnIndexOrThrow(DBDefs.Product_Order.C_PRODUCT_ID))},
-                            null, null, null, null);
+                if (cursor2.getCount() > 0) {
                     do {
-                        Products products = new Products();
-                        products.setName(cursor3.getString(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
-                        products.setPrice(cursor3.getFloat(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
-                        products.setID(cursor3.getInt(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_ID)));
-                        productList.add(products);
-                    } while (cursor3.moveToNext());
-                } while (cursor2.moveToNext());
+                        // product info list
+                        Cursor cursor3 = dbManager.fetch(DBDefs.Product.TABLE_NAME,
+                                new String[]{DBDefs.Product.C_PRODUCT_ID, DBDefs.Product.C_PRODUCT_NAME,
+                                        DBDefs.Product.C_PRICE},
+                                DBDefs.Product.C_PRODUCT_ID + " like ?",
+                                new String[]{cursor2.getString(cursor2.getColumnIndexOrThrow(DBDefs.Product_Order.C_PRODUCT_ID))},
+                                null, null, null, null);
+                        do {
+                            Products products = new Products();
+                            products.setName(cursor3.getString(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
+                            products.setPrice(cursor3.getFloat(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
+                            products.setID(cursor3.getInt(cursor3.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_ID)));
+                            productList.add(products);
+                        } while (cursor3.moveToNext());
+                    } while (cursor2.moveToNext());
+                }
                 // take the generated product list and convert it to a string of the correct type
                 // and also turn this list into the total cost
                 String orderProducts = convertProductListToString(productList);

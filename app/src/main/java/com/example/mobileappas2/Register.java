@@ -36,6 +36,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         Button cancelButton = findViewById(R.id.cancelRegistraction_Button);
         cancelButton.setOnClickListener(view -> cancel());
 

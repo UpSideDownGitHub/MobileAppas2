@@ -36,6 +36,7 @@
     <string name="register_validphone">Please Enter Valid Phone Number</string>
 
     <!-- USER SHOP SCREEN -->
+    <string name="shop_title">Shop</string>
     <string name="category_title">Cat_Title</string>
     <string name="category_description">example description of a category</string>
     <!-- recycler view items -->
@@ -53,6 +54,7 @@
     <string name="update_userinfo_button">Update</string>
     <string name="cancel_userinfo_button">Cancel</string>
     <string name="oldpassword_entry">Old Password</string>
+    <string name="edit_user_title">Edit User</string>
 
     <!-- BASKET SCREEN -->
     <string name="buycontents_button">Buy</string>
@@ -63,13 +65,17 @@
 
     <!-- ADMIN STRINGS -->
     <!-- ADMIN NAV BAR -->
-    <string name="admin_navbar_1">SHOP</string>
-    <string name="admin_navbar_2">ORDER</string>
-    <string name="admin_navbar_3">USER</string>
-    <string name="admin_navbar_4">CATEGORY</string>
+    <string name="admin_navbar_1">PRODUCTS</string>
+    <string name="admin_navbar_2">ORDERS</string>
+    <string name="admin_navbar_3">USERS</string>
+    <string name="admin_navbar_4">CATEGORIES</string>
+
+    <!-- SHOP ITEMS -->
+    <string name="admin_shop_title">Products</string>
 
     <!-- NEW ITEM -->
-    <string name="admin_newitem_text">New</string>
+    <string name="admin_newitem_text">New Product</string>
+    <string name="admin_new_cat_text">New</string>
     <string name="admin_description_hint">Description</string>
     <string name="admin_price_hint">Price</string>
     <string name="admin_category_hint">Category</string>
@@ -78,6 +84,12 @@
     <!-- UPDATE ITEM -->
     <string name="admin_updateitem_text">Update</string>
     <string name="admin_delete_button">Delete</string>
+
+    <!-- VIEW ORDERS -->
+    <string name="admin_order_title">Orders</string>
+
+    <!-- VIEW USERS -->
+    <string name="admin_user_title">Users</string>
 
     <!-- EDIT USER -->
     <string name="admin_edituser_text">Edit User</string>

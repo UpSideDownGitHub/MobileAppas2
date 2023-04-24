@@ -53,12 +53,12 @@ public class AdminShopFragment extends Fragment {
 
         // ADD CLICK LISTENER TO THE FLOATING ACTION BUTTON OPEN THE
         // NEW PRODUCT WINDOW
-        FloatingActionButton floatingActionButton = binding.adminNewProductActionButton;
+        Button floatingActionButton = binding.adminNewProductActionButton;
         floatingActionButton.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_admin_new_product);
         });
 
-        FloatingActionButton newCategoryButton = binding.adminNewCategoryActionButton;
+        Button newCategoryButton = binding.adminNewCategoryActionButton;
         newCategoryButton.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_admin_edit_category);
         });
@@ -91,9 +91,9 @@ public class AdminShopFragment extends Fragment {
         Spinner spinner = (Spinner) binding.adminShopSpinner;
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 getActivity(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 categoryTitles);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(arrayAdapter);
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

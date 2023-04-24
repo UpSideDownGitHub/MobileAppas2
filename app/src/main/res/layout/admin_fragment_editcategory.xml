@@ -12,6 +12,8 @@
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="@string/admin_category_title"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -33,6 +35,8 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/button_background"
         android:popupBackground="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +121,18 @@
         android:layout_height="50dp"
         android:layout_marginBottom="75dp"
         android:background="@drawable/button_background"
-        android:text="@string/admin_newitem_text"
+        android:text="@string/admin_new_cat_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editCat_Update_Button"
         app:layout_constraintStart_toEndOf="@+id/editCat_Delete_Button" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/baseline_expand_more_24"
+        app:layout_constraintBottom_toBottomOf="@+id/editCat_Spinner"
+        app:layout_constraintEnd_toEndOf="@+id/editCat_Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,6 +71,11 @@ public class BasketFragment extends Fragment {
 
     public void buyContent()
     {
+        ArrayList<Products> products = BasketData.getBasketData();
+        if (products.size() <= 0)
+        {
+            return;
+        }
         // OPEN THE DATABASE
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
@@ -92,7 +97,7 @@ public class BasketFragment extends Fragment {
         int lastOrderID = cursor.getCount();
 
         // INSERT ALL OF THE PRODUCTS IN THIS ORDER INTO THE PRODUCT_ORDER TABLE
-        ArrayList<Products> products = BasketData.getBasketData();
+
         for (int i = 0; i < products.size(); i++)
         {
             dbManager.insert(products.get(i).getID(), lastOrderID);

@@ -27,6 +27,7 @@ import com.example.mobileappas2.Database.DBManager;
 import com.example.mobileappas2.Database.DataHolders.Categories;
 import com.example.mobileappas2.Database.DataHolders.Products;
 import com.example.mobileappas2.Database.DataHolders.Users;
+import com.example.mobileappas2.R;
 import com.example.mobileappas2.databinding.FragmentShopBinding;
 
 import java.util.ArrayList;
@@ -68,6 +69,9 @@ public class ShopFragment extends Fragment{
                 null, null, null, null);
         dbManager.close();
 
+        categoryTitles.clear();
+        categoryDescriptions.clear();
+
         // convert data in database to a usable list of strings
         do {
             String cat = new String();
@@ -82,9 +86,9 @@ public class ShopFragment extends Fragment{
         Spinner spinner = (Spinner) binding.categorySpinner;
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 getActivity(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 categoryTitles);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(arrayAdapter);
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

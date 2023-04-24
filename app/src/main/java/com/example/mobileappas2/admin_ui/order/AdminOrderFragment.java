@@ -21,6 +21,7 @@ import com.example.mobileappas2.Database.DBManager;
 import com.example.mobileappas2.Database.DataHolders.Orders;
 import com.example.mobileappas2.Database.DataHolders.Products;
 import com.example.mobileappas2.Database.DataHolders.UserOrders;
+import com.example.mobileappas2.R;
 import com.example.mobileappas2.databinding.AdminFragmentOrdersBinding;
 import com.example.mobileappas2.ui.user.OldOrderData;
 import com.example.mobileappas2.ui.user.OldOrdersAdapter;
@@ -67,9 +68,9 @@ public class AdminOrderFragment extends Fragment {
         Spinner spinner = (Spinner) binding.adminUserSpinner;
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 getActivity(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 playerNames);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(arrayAdapter);
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

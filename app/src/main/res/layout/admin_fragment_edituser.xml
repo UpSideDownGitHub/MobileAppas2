@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Register">
 
     <TextView
@@ -20,6 +21,8 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="@string/admin_edituser_text"
         android:textAlignment="center"
         android:textSize="40sp"
@@ -31,6 +34,7 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/password_hint"
         app:layout_constraintEnd_toEndOf="@+id/admin_productDescriptionUpdate_entry_user"
         app:layout_constraintStart_toStartOf="@+id/admin_productDescriptionUpdate_entry_user"
@@ -52,6 +56,7 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/email_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerEmail_editText_user"
         app:layout_constraintStart_toStartOf="@+id/registerEmail_editText_user"
@@ -63,7 +68,7 @@
         android:layout_height="50dp"
         android:ems="10"
         android:hint="@string/password_entry"
-        android:inputType="textVisiblePassword"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -72,6 +77,7 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/address_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerAddress_editText_user"
         app:layout_constraintStart_toStartOf="@+id/registerAddress_editText_user"
@@ -92,6 +98,7 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/postcode_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerPostcode_editText_user"
         app:layout_constraintStart_toStartOf="@+id/registerPostcode_editText_user"
@@ -112,6 +119,7 @@
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/phonenumber_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerPhoneNumber_editText_user"
         app:layout_constraintStart_toStartOf="@+id/registerPhoneNumber_editText_user"
@@ -140,30 +148,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/admin_cancelNewProductUpdate_Button_user"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/admin_DeleteUser_Button_user"
+        android:layout_width="175dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="75dp"
-        android:text="@string/cancel_userinfo_button"
+        android:background="@drawable/button_background"
+        android:text="@string/admin_delete_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/admin_DeleteUser_Button_user"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="@string/admin_delete_button"
-        app:layout_constraintBottom_toBottomOf="@+id/admin_cancelNewProductUpdate_Button_user"
-        app:layout_constraintEnd_toStartOf="@+id/admin_UpdateProduct_Button_user"
-        app:layout_constraintStart_toEndOf="@+id/admin_cancelNewProductUpdate_Button_user" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/admin_UpdateProduct_Button_user"
-        android:layout_width="100dp"
+        android:layout_width="175dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/button_background"
         android:text="@string/admin_updateitem_text"
         app:layout_constraintBottom_toBottomOf="@+id/admin_DeleteUser_Button_user"
         app:layout_constraintEnd_toEndOf="parent" />

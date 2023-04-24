@@ -4,27 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.basket.BasketFragment">
 
     <TextView
-        android:id="@+id/admin_usersTitle_Text"
-        android:layout_width="400dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/title_basket"
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_user_title"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_Users_RecyclerView"
-        android:layout_width="400dp"
-        android:layout_height="650dp"
+        android:layout_width="350dp"
+        android:layout_height="600dp"
+        android:background="@drawable/background_low_alpha"
+        android:layout_marginTop="20dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_usersTitle_Text">
+        app:layout_constraintTop_toBottomOf="@+id/textView36">
 
     </androidx.recyclerview.widget.RecyclerView>
 

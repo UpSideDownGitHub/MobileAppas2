@@ -74,9 +74,9 @@ public class NewProductFragment extends Fragment {
         Spinner spinner = (Spinner) binding.adminNewItemUpdateSpinner;
         ArrayAdapter arrayAdapter = new ArrayAdapter(
                 getActivity(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 categoryTitles);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(arrayAdapter);
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -4,15 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.shop.ShopFragment">
 
-    <Spinner
-        android:id="@+id/admin_User_Spinner"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/admin_order_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/admin_User_Spinner"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/button_background"
+        android:popupBackground="@drawable/button_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
     <TextView
         android:id="@+id/admin_UserName_Text"
@@ -28,11 +46,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_Orders_RecyclerView"
-        android:layout_width="400dp"
-        android:layout_height="600dp"
+        android:layout_width="350dp"
+        android:layout_height="550dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/background_low_alpha"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_UserName_Text" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/baseline_expand_more_24"
+        app:layout_constraintBottom_toBottomOf="@+id/admin_User_Spinner"
+        app:layout_constraintEnd_toEndOf="@+id/admin_User_Spinner"
+        app:layout_constraintTop_toTopOf="@+id/admin_User_Spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
