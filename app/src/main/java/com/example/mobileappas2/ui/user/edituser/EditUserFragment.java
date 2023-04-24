@@ -33,10 +33,11 @@ public class EditUserFragment extends Fragment {
 
     private FragmentEdituserBinding binding;
     public int userID;
-
+    public Users user;
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class EditUserFragment extends Fragment {
         // GET THE CURRENT DATA HELD IN THE DATABASE FOR THIS USER
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
-        Users user = new Users();
+        user = new Users();
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD,
                         DBDefs.User.C_PHONE_NUMBER, DBDefs.User.C_ADDRESS,
@@ -112,7 +113,7 @@ public class EditUserFragment extends Fragment {
         String oldPassword = binding.oldpasswordEditText.getText().toString();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
-                address.isEmpty() || phoneNumber.isEmpty() || oldPassword.isEmpty())
+                address.isEmpty() || phoneNumber.isEmpty())
         {
             Toast.makeText(
                     getContext(),
@@ -168,33 +169,42 @@ public class EditUserFragment extends Fragment {
             date = d.format(dateFormatter);
         }
 
-        Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
-                new String[]{DBDefs.User.C_FULL_NAME},
-                DBDefs.User.C_FULL_NAME + " like ?",
-                new String[]{username},
-                null, null, null, null);
-        if (cursor.getCount() > 0)
+        if (!username.equals(user.getFullName()))
         {
-            Toast.makeText(
-                    getContext(),
-                    "User Name Already Taken",
-                    Toast.LENGTH_SHORT).show();
-            dbManager.close();
-            return;
+            // check if the username is unique
+            Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
+                    new String[]{DBDefs.User.C_FULL_NAME},
+                    DBDefs.User.C_FULL_NAME + " like ?",
+                    new String[]{username},
+                    null, null, null, null);
+            if (cursor.getCount() > 0)
+            {
+                Toast.makeText(
+                        getContext(),
+                        "Username Already Taken",
+                        Toast.LENGTH_SHORT).show();
+                dbManager.close();
+                return;
+            }
         }
-        Cursor cursor2 = dbManager.fetch(DBDefs.User.TABLE_NAME,
-                new String[]{DBDefs.User.C_EMAIL_ADDRESS},
-                DBDefs.User.C_EMAIL_ADDRESS + " like ?",
-                new String[]{email},
-                null, null, null, null);
-        if (cursor2.getCount() > 0)
+
+        if (!email.equals(user.getEmail()))
         {
-            Toast.makeText(
-                    getContext(),
-                    "Email Already Taken",
-                    Toast.LENGTH_SHORT).show();
-            dbManager.close();
-            return;
+            // check if the email is unique
+            Cursor cursor2 = dbManager.fetch(DBDefs.User.TABLE_NAME,
+                    new String[]{DBDefs.User.C_EMAIL_ADDRESS},
+                    DBDefs.User.C_EMAIL_ADDRESS + " like ?",
+                    new String[]{email},
+                    null, null, null, null);
+            if (cursor2.getCount() > 0)
+            {
+                Toast.makeText(
+                        getContext(),
+                        "Email Already Taken",
+                        Toast.LENGTH_SHORT).show();
+                dbManager.close();
+                return;
+            }
         }
 
         // UPDATE THE CONTENTS OF THE DATABASE

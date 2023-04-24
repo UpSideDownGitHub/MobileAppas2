@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ui.shop.ShopFragment">
 
     <TextView
@@ -32,6 +33,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
+        android:popupBackground="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCat_Title_Text" />
@@ -79,42 +81,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editCat_Back_Button"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="75dp"
-        android:text="@string/admin_category_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editCat_Update_Button"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/admin_updateitem_text"
-        app:layout_constraintBottom_toBottomOf="@+id/editCat_Back_Button"
-        app:layout_constraintEnd_toStartOf="@+id/editCat_Delete_Button"
-        app:layout_constraintStart_toEndOf="@+id/editCat_Back_Button" />
+        android:background="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="@+id/editCat_Delete_Button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editCat_Delete_Button"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/button_background"
         android:text="@string/admin_delete_button"
-        app:layout_constraintBottom_toBottomOf="@+id/editCat_Update_Button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/editCat_New_Button"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editCat_New_Button"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="75dp"
+        android:background="@drawable/button_background"
         android:text="@string/admin_newitem_text"
-        app:layout_constraintBottom_toTopOf="@+id/editCat_Update_Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editCat_Update_Button"
+        app:layout_constraintStart_toEndOf="@+id/editCat_Delete_Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

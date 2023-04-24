@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+        <!-- MY COLORS -->
+        <color name="light_orange">#FF5722</color>
+        <color name="orange_red">#F44336</color>
+        <color name="red">#E91E63</color>
+
+    <color name="light_orange_05">#80FF5722</color>
+    <color name="orange_red_05">#80F44336</color>
+    <color name="red_05">#80E91E63</color>
+
+        <color name="clear">#00000000</color>
 </resources>

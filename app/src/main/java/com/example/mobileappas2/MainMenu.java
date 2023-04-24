@@ -19,6 +19,7 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+
         // check if there are the correct values in the data base if not then initilise it
         DBManager dbManager = new DBManager(this);
         dbManager.open();

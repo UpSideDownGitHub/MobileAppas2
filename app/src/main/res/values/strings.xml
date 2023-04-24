@@ -30,6 +30,10 @@
     <string name="register_email_toast">Emails Do Not Match</string>
     <string name="register_password_toast">Passwords Do Not Match</string>
     <string name="register_succesful_toast">Registered Successfully</string>
+    <string name="register_nameinuse">username Already In Use</string>
+    <string name="register_validemail">Please Enter Valid Email</string>
+    <string name="register_validpostcode">Please Enter a Valid Postcode</string>
+    <string name="register_validphone">Please Enter Valid Phone Number</string>
 
     <!-- USER SHOP SCREEN -->
     <string name="category_title">Cat_Title</string>
