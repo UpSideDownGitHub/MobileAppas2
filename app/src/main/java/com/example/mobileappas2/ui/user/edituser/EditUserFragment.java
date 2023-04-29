@@ -30,20 +30,26 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class EditUserFragment extends Fragment {
-
-    private FragmentEdituserBinding binding;
-    public int userID;
+    // public varaibles
+	public int userID;
     public Users user;
+
+    // private variables
+    private FragmentEdituserBinding binding;
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root					 
         binding = FragmentEdituserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+		
+		// setup listeners of all of the buttons in the layout
         Button updateUserButton = binding.updateUserInfoButton;
         updateUserButton.setOnClickListener(view -> updateUserInfo(view));
 
@@ -68,6 +74,7 @@ public class EditUserFragment extends Fragment {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         user = new Users();
+		// load all of the data for the current user
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD,
                         DBDefs.User.C_PHONE_NUMBER, DBDefs.User.C_ADDRESS,
@@ -77,6 +84,7 @@ public class EditUserFragment extends Fragment {
                 new String[]{Integer.toString(userID)},
                 null, null, null, null);
         do {
+			// save all of the information for the current user
             user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
             user.setPhoneNumber(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PHONE_NUMBER)));
@@ -86,7 +94,8 @@ public class EditUserFragment extends Fragment {
             user.setHobby(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_HOBBIES)));
             user.setID(userID);
         }while(cursor.moveToNext());
-
+		
+		// show the information to chagne to the user
         username.setText(user.getFullName());
         password.setText(user.getPassword());
         phoneNumber.setText(user.getPhoneNumber());
@@ -96,10 +105,14 @@ public class EditUserFragment extends Fragment {
         hobby.setText(user.getHobby());
 
         dbManager.close();
-
+		
+		// return root
         return root;
     }
-
+	
+	/*
+		this function will handle updateing the information of the current user in the database
+	*/
     public void updateUserInfo(View view)
     {
         // GET THE CURRENT USER ID & OPEN THE DATABASE
@@ -116,7 +129,8 @@ public class EditUserFragment extends Fragment {
         String phoneNumber = binding.phoneNumberEditEditText.getText().toString();
         String hobby = binding.hobbyEditEditText.getText().toString();
         String oldPassword = binding.oldpasswordEditText.getText().toString();
-
+		
+		// if any of the entered inforamtion is enempy then stop and warn the player
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
                 address.isEmpty() || phoneNumber.isEmpty() || hobby.isEmpty())
         {
@@ -127,7 +141,9 @@ public class EditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
-
+		
+		// if they did not enter there old password then stop and warn them that they
+		// need to entere there old password to change there information
         if (oldPassword.isEmpty())
         {
             Toast.makeText(
@@ -137,7 +153,8 @@ public class EditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
-
+		
+		// if the email is not in the correct format then stop and warn the user
         if (!email.matches(EMAIL_PATTERN))
         {
             Toast.makeText(
@@ -147,6 +164,7 @@ public class EditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
+		// if the postcode is not in the correct format then stop and warn the user
         if (!postcode.matches("^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"))
         {
             Toast.makeText(
@@ -156,6 +174,7 @@ public class EditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
+		// if the phone number is not in the correct format then stop and warn the user
         if (!phoneNumber.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"))
         {
             Toast.makeText(
@@ -165,7 +184,7 @@ public class EditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
-
+		// get the current date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -173,7 +192,8 @@ public class EditUserFragment extends Fragment {
             LocalDate d = LocalDate.now(ZoneId.systemDefault());
             date = d.format(dateFormatter);
         }
-
+		
+		// if the player chagned there username
         if (!username.equals(user.getFullName()))
         {
             // check if the username is unique
@@ -182,6 +202,7 @@ public class EditUserFragment extends Fragment {
                     DBDefs.User.C_FULL_NAME + " like ?",
                     new String[]{username},
                     null, null, null, null);
+			// if the new username is not uniuq then stop and warn the user
             if (cursor.getCount() > 0)
             {
                 Toast.makeText(
@@ -192,7 +213,8 @@ public class EditUserFragment extends Fragment {
                 return;
             }
         }
-
+		
+		// if the user has changed there email
         if (!email.equals(user.getEmail()))
         {
             // check if the email is unique
@@ -201,6 +223,7 @@ public class EditUserFragment extends Fragment {
                     DBDefs.User.C_EMAIL_ADDRESS + " like ?",
                     new String[]{email},
                     null, null, null, null);
+			// if the new email is not unique then stop and warn the user
             if (cursor2.getCount() > 0)
             {
                 Toast.makeText(
@@ -221,13 +244,17 @@ public class EditUserFragment extends Fragment {
         // return to the user screen
         Navigation.findNavController(view).navigate(R.id.navigation_user);
     }
-
+	
+	/*
+		return to the main screen
+	*/
     public void cancelUpdate(View view)
     {
         // return to the user screen
         Navigation.findNavController(view).navigate(R.id.navigation_user);
     }
-
+	
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

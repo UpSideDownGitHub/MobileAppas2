@@ -33,13 +33,19 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class NewProductFragment extends Fragment {
-    private AdminFragmentNewproductBinding binding;
-
-    public ArrayList<String> categoryTitles = new ArrayList();
+	// public varaibles
+	public ArrayList<String> categoryTitles = new ArrayList();
     public int categorySelectedID;
 
+    // private variables
+    private AdminFragmentNewproductBinding binding;
+    
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentNewproductBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -94,23 +100,31 @@ public class NewProductFragment extends Fragment {
         return root;
     }
 
+	/*
+		this is called to create a new product and will check if there is not already a product with the 
+		given infomation and if there is not will add the new product to the save data
+	*/
     public void createNewProduct()
     {
+		// load the information the user has entered
         String name = binding.adminProductnameupdateEntry.getText().toString();
         String description = binding.adminProductDescriptionUpdateEntry.getText().toString();
         String price = binding.adminProductPriceUpdateEntry.getText().toString();
+		// if the user has not entered a valid price
         try {
             Float temp = Float.parseFloat(price);
         }
         catch (Exception e)
         {
+			// stop and warn the user of there mistake
             Toast.makeText(
                     getContext(),
                     "Please Enter A Valid Price",
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+		
+		// if the user has not entered any inforamtion then stop and warn them
         if (name.isEmpty() || description.isEmpty())
         {
             Toast.makeText(
@@ -119,6 +133,8 @@ public class NewProductFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+		
+		// get the current date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -127,17 +143,19 @@ public class NewProductFragment extends Fragment {
             date = d.format(dateFormatter);
         }
 
+		// open the database
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         // need to check if there are another items the same type
-
         Cursor cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
                 new String[]{DBDefs.Product.C_PRODUCT_NAME},
                 DBDefs.Product.C_PRODUCT_NAME + " Like ?",
                 new String[]{name},
                 null, null, null, null);
+		// if any items where found in the above fetch statement 
         if (cursor.getCount() > 0)
         {
+			// warn the user taht there is allready an item with that name
             Toast.makeText(
                     getContext(),
                     "There is Already A Product With That Name",
@@ -146,13 +164,15 @@ public class NewProductFragment extends Fragment {
             return;
         }
 
-
+		// insert the new product into the database
         dbManager.insert(name, description, date, date, Float.parseFloat(price),
                 Float.parseFloat(price), Float.parseFloat(price), categorySelectedID);
         dbManager.close();
+		// load the admin main shop screen
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_shop);
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

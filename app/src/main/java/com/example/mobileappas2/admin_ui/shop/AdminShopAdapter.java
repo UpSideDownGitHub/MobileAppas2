@@ -46,7 +46,8 @@ public class AdminShopAdapter extends RecyclerView.Adapter<com.example.mobileapp
         // Create the new viewHolder and return it
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_shop_item_fragment, parent, false);
         AdminShopAdapter.ViewHolder2 viewHolder = new com.example.mobileappas2.admin_ui.shop.AdminShopAdapter.ViewHolder2(view);
-
+		
+		// add a listenre to the recycler view that will be called when it is pressed
         view.setOnClickListener(v -> {
             // get the position of the adapter
             globalPosition = viewHolder.getAbsoluteAdapterPosition();

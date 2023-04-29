@@ -49,10 +49,15 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.oldorder_item_fragment, parent, false);
         AdminOrderAdapter.ViewHolder2 viewHolder = new AdminOrderAdapter.ViewHolder2(view);
 
+        // attach a listener that will be called when an item is pressed
         view.setOnClickListener(v -> {
+            // get the index of the pressed item in the list
             int pos = viewHolder.getAbsoluteAdapterPosition();
             int index = orderData.indexOf(orderData.get(pos));
+            // set the current selected ID to the ID of the item that was selected
             currentSelectedOrderID = orderData.get(index).getOrderID();
+
+            // turn off all of the toggles as a new item has been selected
             toggles[0].setChecked(false);
             toggles[1].setChecked(false);
             toggles[2].setChecked(false);

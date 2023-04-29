@@ -1,6 +1,7 @@
 package com.example.mobileappas2.Database.DataHolders;
 
 public class Products {
+	// private variables
     private String name, description;
     private String dateCreated, dateUpdated;
     private Float price, listPrice,
@@ -8,6 +9,8 @@ public class Products {
     private Integer ID, categoryID;
 
 
+	// GETTERS & SETTERS
+	
     public Integer getID() {
         return ID;
     }

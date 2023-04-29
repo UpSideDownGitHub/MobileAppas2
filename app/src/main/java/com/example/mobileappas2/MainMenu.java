@@ -14,11 +14,16 @@ import com.example.mobileappas2.Database.DBManager;
 import com.example.mobileappas2.Database.DataHolders.Users;
 
 public class MainMenu extends AppCompatActivity {
+	/*
+        is called whenthe view is created
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+		// inflate the view and get the root to set as the content view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+		
+		// if the action bar is visable then turn it off
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -29,6 +34,7 @@ public class MainMenu extends AppCompatActivity {
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
                 new String[]{DBDefs.Category.C_CATEGORY_ID},
                 null,null,null,null,null,null);
+		// if there is not info in the database the put in the the default categories
         if (cursor.getCount() < 1)
         {
             dbManager.insert("All", "All Items");
@@ -44,16 +50,25 @@ public class MainMenu extends AppCompatActivity {
         Button registerButton = findViewById(R.id.register_Button);
         registerButton.setOnClickListener(view -> loadRegisterScreen());
     }
-
+	
+	/*
+		this function will load the register screen
+	*/
     public void loadRegisterScreen()
     {
         // load the register screen
         Intent intent = new Intent(MainMenu.this, Register.class);
         startActivity(intent);
     }
-
+	
+	// username & password for the admin account
     private String adminUsername = "admin";
     private String adminPassword = "admin";
+	
+	/*
+		this function handles checking if the information the user entered matches any in
+		the database or the admin login inforamtion
+	*/
     public void checkLogin()
     {
         // get the username and password from there text views
@@ -64,12 +79,13 @@ public class MainMenu extends AppCompatActivity {
         if (username.getText().toString().equals(adminUsername) &&
                 password.getText().toString().equals(adminPassword))
         {
+			// show welcome message
             Toast.makeText(
                     getApplicationContext(),
                     R.string.welcome_toast,
                     Toast.LENGTH_SHORT).show();
 
-            // load
+            // load the admin activity
             Intent intent = new Intent(MainMenu.this, AdminActivity.class);
             startActivity(intent);
             return;
@@ -78,6 +94,7 @@ public class MainMenu extends AppCompatActivity {
         // retrieve the wanted values from the database
         DBManager dbManager = new DBManager(this);
         dbManager.open();
+		// get the player information where the player name is like that of the one entered
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD, DBDefs.User.C_USER_ID},
                 DBDefs.User.C_FULL_NAME + " like ?",
@@ -87,8 +104,10 @@ public class MainMenu extends AppCompatActivity {
 
         // get the values from the cursor and store them
         Users user = new Users();
+		// if there is any inforamtion in the cursor
         if (cursor.getCount() > 0) {
             do {
+				// save the inforamtion
                 user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
                 user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
                 user.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User.C_USER_ID)));

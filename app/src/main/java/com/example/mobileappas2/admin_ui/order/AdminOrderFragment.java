@@ -36,16 +36,22 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class AdminOrderFragment extends Fragment {
-
-    private AdminFragmentOrdersBinding binding;
-    private AdminOrderAdapter adapter;
+    // public varaibles
     public ArrayList<String> playerNames = new ArrayList();
     public int userID = 0;
+	public ToggleButton[] toggles;
 
-    public ToggleButton[] toggles;
+	// private variables
+	private AdminFragmentOrdersBinding binding;
+    private AdminOrderAdapter adapter;
+    
 
+	/*
+        is called whenthe view is created
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentOrdersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -95,20 +101,28 @@ public class AdminOrderFragment extends Fragment {
                 // TODO Auto-generated method stub
             }
         });
-
+		
+		// create a list of all of the toggles then add listeners to all of them
+		// to call the toggleSelected function
         toggles = new ToggleButton[]{binding.adminOrderToggle1, binding.adminOrderToggle2,
                 binding.adminOrderToggle3,binding.adminOrderToggle4};
         toggles[0].setOnClickListener(view -> toggleSelected(0));
         toggles[1].setOnClickListener(view -> toggleSelected(1));
         toggles[2].setOnClickListener(view -> toggleSelected(2));
         toggles[3].setOnClickListener(view -> toggleSelected(3));
-
+		
+		// update the adapter to show the correct information 
         updateAdapter();
         return root;
     }
-
+	
+	/*
+		when this is called it will update the current order status of the 
+		selcted order to that of the toggle that was selected
+	*/
     public void toggleSelected(int toggleID)
     {
+		// enable the correct toggle
         enableToggles(toggleID);
         /*
         *   0 = making order
@@ -120,6 +134,8 @@ public class AdminOrderFragment extends Fragment {
         Log.i("DEBUG", "CURRENT ID: " + AdminOrderAdapter.currentSelectedOrderID);
         if (AdminOrderAdapter.currentSelectedOrderID < 0)
             return;
+		
+		// find the current date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -127,9 +143,11 @@ public class AdminOrderFragment extends Fragment {
             LocalDate d = LocalDate.now(ZoneId.systemDefault());
             date = d.format(dateFormatter);
         }
-
+		
+		// open the database
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
+		// update the current order to show the new order status
         dbManager.update(AdminOrderAdapter.currentSelectedOrderID,
                 date,
                 toggleID,
@@ -150,12 +168,19 @@ public class AdminOrderFragment extends Fragment {
 
         toggles[togglePressed].setChecked(true);
     }
-
+	
+	/*
+		update the adapter to show all of the correct inforamtion, this function
+		will get all of the info from the database and then convert it to the
+		correct form to be shown to the user
+	*/
     public void updateAdapter() {
+		// open the database
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         ArrayList<OrderData> orderData = new ArrayList();
-
+		
+		// change the orders shown based on the current user selection
         if (userID == 0) {
             binding.adminUserNameText.setText("All");
         } else {
@@ -166,6 +191,7 @@ public class AdminOrderFragment extends Fragment {
                     new String[]{Integer.toString(userID)},
                     null, null, null, null);
             String name;
+			// if there are any players then show the current player name as the selected player
             if (cur.getCount() > 0) {
                 do {
                     name = cur.getString(cur.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
@@ -173,7 +199,7 @@ public class AdminOrderFragment extends Fragment {
                 binding.adminUserNameText.setText(name);
             }
         }
-
+		
         Cursor cursor;
         if (userID == 0) {
             // GET ALL OF THE ORDER ID'S
@@ -182,7 +208,7 @@ public class AdminOrderFragment extends Fragment {
                     null, null, null,
                     null, null, null);
         } else {
-            // GET ALL OF THE ORDER ID'S FOR THE CURRENT PLAYER
+            // GET ALL OF THE ORDER ID'S FOR THE CURRENT SELCTED PLAYER
             cursor = dbManager.fetch(DBDefs.User_Order.TABLE_NAME,
                     new String[]{DBDefs.User_Order.C_ORDER_ID, DBDefs.User_Order.C_USER_ID},
                     DBDefs.User_Order.C_USER_ID + " like ?",
@@ -225,6 +251,7 @@ public class AdminOrderFragment extends Fragment {
                             DBDefs.Product.C_PRODUCT_ID + " like ?",
                             new String[]{cursor2.getString(cursor2.getColumnIndexOrThrow(DBDefs.Product_Order.C_PRODUCT_ID))},
                             null, null, null, null);
+					// if there are any products
                     if (cursor3.getCount() > 0) {
                         do {
                             Products products = new Products();
@@ -253,6 +280,7 @@ public class AdminOrderFragment extends Fragment {
                         new String[]{userOrders.get(i).getOrderID().toString()},
                         null, null, null, null);
                 do {
+					// create the order obejct and give it the data from the database
                     Orders order = new Orders();
                     order.setDateCreated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_CREATED)));
                     order.setDateUpdated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_UPDATED)));
@@ -264,6 +292,7 @@ public class AdminOrderFragment extends Fragment {
                 String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
                 String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
                 String orderStatus = "Status";
+				// change the status based upon the current order status
                 if (orderList.get(0).getStatus() == 0)
                     orderStatus = "Status: " + getString(R.string.admin_status1);
                 else if (orderList.get(0).getStatus() == 1)
@@ -288,7 +317,11 @@ public class AdminOrderFragment extends Fragment {
 
         dbManager.close();
     }
-
+	
+	/*
+		this will take a input ofa list of proucts and return a string of the total pruce
+		all of the given products add up to
+	*/
     public String convertProductListToTotalString(ArrayList<Products> list) {
         float subTotal = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -296,7 +329,11 @@ public class AdminOrderFragment extends Fragment {
         }
         return "Total: £ " + Float.toString(subTotal);
     }
-
+	
+	/*
+		this will take a list of products and return a the converted list to be show
+		to the user
+	*/
     public String convertProductListToString(ArrayList<Products> list) {
         String tempString = "";
         for (int i = 0; i < list.size(); i++) {
@@ -306,6 +343,7 @@ public class AdminOrderFragment extends Fragment {
         return tempString;
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

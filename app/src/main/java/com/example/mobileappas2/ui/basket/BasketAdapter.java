@@ -113,15 +113,23 @@ public class BasketAdapter extends RecyclerView.Adapter<com.example.mobileappas2
         copyBasketData();
     }
 
-
+	/*
+		this will copy all of the data from the BasketData class and then update the recycler
+		view to show this new data
+	*/
     public void copyBasketData()
     {
         basketDataHolder = BasketData.getBasketData();
         update();
     }
-
+	
+	/*
+		this function will handle updating the current total cost and is needed for 
+		when the user decides to remove an item from the basket, as the price will update
+	*/
     public void updateTotalCost()
     {
+		// for all of the products add up the price then set the total to be this number
         ArrayList<Products> products = BasketData.getBasketData();
         float subTotal = 0;
         for (int i = 0; i < products.size(); i++)

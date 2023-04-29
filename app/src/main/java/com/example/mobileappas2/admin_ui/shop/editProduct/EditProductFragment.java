@@ -36,13 +36,20 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class EditProductFragment extends Fragment {
-    private AdminFragmentUpdateproductBinding binding;
-    public int productID;
+	// PUBLIC VARIABLES
+	public int productID;
     public int categorySelectedID;
     public ArrayList<String> categoryTitles = new ArrayList();
-
+	
+	// PRIVATE VARAIBLES
+    private AdminFragmentUpdateproductBinding binding;
+    
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentUpdateproductBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -78,13 +85,15 @@ public class EditProductFragment extends Fragment {
                 new String[]{Integer.toString(productID)},
                 null, null, null, null);
         do {
+			// SAVE THE FOUND DATA
             product.setName(cur.getString(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_NAME)));
             product.setDescription(cur.getString(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRODUCT_DESCRIPTION)));
             product.setPrice(cur.getFloat(cur.getColumnIndexOrThrow(DBDefs.Product.C_PRICE)));
             product.setCategoryID(cur.getInt(cur.getColumnIndexOrThrow(DBDefs.Product.C_CATEGORY_ID)));
             product.setID(productID);
         }while(cur.moveToNext());
-
+		
+		// SET THE CURRENT PRODUCTS INFORMATION TO BE VISABLE ON SCREEN
         name.setText(product.getName());
         description.setText(product.getDescription());
         price.setText(product.getPrice().toString());
@@ -129,25 +138,33 @@ public class EditProductFragment extends Fragment {
 
         return root;
     }
-
+	
+	/*
+		when this is called the current product that is selected will updated with the new
+		information entered by the user
+	*/
     public void updateProduct()
     {
         // GET ALL OF THE DATA TO BE UPDATED IN THE DATABASE
         String name = binding.adminProductnameupdateEntry.getText().toString();
         String description = binding.adminProductDescriptionUpdateEntry.getText().toString();
         Float price = new Float(0);
+		// test if the user has entered a valid number if not give a warning to the user
         try {
             price = Float.parseFloat(binding.adminProductPriceUpdateEntry.getText().toString());
         }
         catch (Exception e)
         {
+			// tell user they need to enter valid number
             Toast.makeText(
                     getContext(),
                     "Please Enter a Valid Number",
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+		
+		// make sure the user has entered information if not then stop and tell user to enter some
+		// new information
         if (name.isEmpty() || description.isEmpty())
         {
             Toast.makeText(
@@ -156,7 +173,8 @@ public class EditProductFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+		
+		// set the current date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -171,21 +189,29 @@ public class EditProductFragment extends Fragment {
         dbManager.update(name, description, date, date, price, price, price,
                 productID, categorySelectedID, null);
         dbManager.close();
-
+		
+		// load the admin shop screen
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_shop);
     }
-
+	
+	/*
+		when this is called it will delete the current selected product from the database
+	*/
     public void deleteProduct(){
         // DELETE THE PRODUCT FROM THE DATABASE
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
+		// delete all products where the product ID is equal to the current selected product ID
         dbManager.delete(DBDefs.Product.TABLE_NAME,
                 "product_id",
                 new String[]{Integer.toString(productID)});
         dbManager.close();
+		
+		// load the admin shop screen
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_shop);
     }
 
+    // used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

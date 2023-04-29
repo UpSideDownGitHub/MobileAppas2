@@ -1,13 +1,15 @@
 package com.example.mobileappas2.admin_ui.order;
 
 public class OrderData {
+	// private variables
     private String orderDate;
     private String orderUpdateDate;
     private String orderProducts;
     private String orderTotalPrice;
     private String orderStatus;
     private int orderID;
-
+	
+	// GETTERS & SETTERS
     public String getOrderDate() {
         return orderDate;
     }

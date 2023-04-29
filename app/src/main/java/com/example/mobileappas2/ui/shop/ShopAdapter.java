@@ -45,6 +45,7 @@ public class ShopAdapter extends RecyclerView.Adapter<com.example.mobileappas2.u
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_item_fragment, parent, false);
         com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2 viewHolder = new com.example.mobileappas2.ui.shop.ShopAdapter.ViewHolder2(view);
 
+		// add a listenre to the recycler view that will be called when it is pressed
         view.setOnClickListener(v -> {
             // get the position of the adapter
             globalPosition = viewHolder.getAbsoluteAdapterPosition();

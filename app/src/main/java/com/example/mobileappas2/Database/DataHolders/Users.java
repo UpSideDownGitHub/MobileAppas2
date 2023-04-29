@@ -1,6 +1,7 @@
 package com.example.mobileappas2.Database.DataHolders;
 
 public class Users {
+	// private variables
     private String fullName, email,
             password, postcode,
             address;
@@ -8,6 +9,7 @@ public class Users {
     private Integer ID;
 
 
+	// GETTERS & SETTERS
 
     public Integer getID() {
         return ID;

@@ -22,15 +22,20 @@ import com.example.mobileappas2.databinding.AdminFragmentUsersBinding;
 import java.util.ArrayList;
 
 public class AdminUserFragment extends Fragment {
-
+	// private varaibles
     private AdminFragmentUsersBinding binding;
     private AdminUsersAdapter adapter;
 
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentUsersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+		// open the database & load all information about the users
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
@@ -38,7 +43,7 @@ public class AdminUserFragment extends Fragment {
                 null, null, null,
                 null, null, null);
 
-
+		// if there have been any users returned then add them all & there data to a ArrayList
         ArrayList<AdminUserData> users = new ArrayList();
         if (cursor.getCount() > 0) {
             do {
@@ -50,7 +55,8 @@ public class AdminUserFragment extends Fragment {
             } while (cursor.moveToNext());
         }
 
-
+		// update the recycler view to show all of the users that where just loaded
+		// from the database
         adapter = new AdminUsersAdapter(getActivity(), getContext(), users);
         RecyclerView recyclerView = (RecyclerView) binding.adminUsersRecyclerView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -60,6 +66,7 @@ public class AdminUserFragment extends Fragment {
         return root;
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

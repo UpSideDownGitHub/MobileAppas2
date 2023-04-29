@@ -34,20 +34,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class AdminShopFragment extends Fragment {
+    // public varaibles
+	public ArrayList<String> categoryTitles = new ArrayList();
+    public ArrayList<String> categoryDescriptions= new ArrayList();
+    public TextView catTitle, catDescription;
 
+    // private variables
     private AdminFragmentShopBinding binding;
     private AdminShopAdapter adapter;
 
-    public ArrayList<String> categoryTitles = new ArrayList();
-    public ArrayList<String> categoryDescriptions= new ArrayList();
-
-    public TextView catTitle, catDescription;
-
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentShopBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+		
+		// get the text views on the layout
         catTitle = binding.adminCategoryNameText;
         catDescription = binding.adminCategoryDescriptionText;
 
@@ -111,7 +116,7 @@ public class AdminShopFragment extends Fragment {
             }
         });
 
-        // Recycler View
+        // setup Recycler View
         adapter = new AdminShopAdapter(getActivity(), getContext(), new ArrayList<>());
         RecyclerView recyclerView = (RecyclerView) binding.adminProductsRecyclerView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -121,12 +126,16 @@ public class AdminShopFragment extends Fragment {
 
         return root;
     }
-
+	
+	/*
+		when called will update the adapter view to show all of the new products
+	*/
     public void updateAdapterView(int ID)
     {
         // clear the list of items in the current adapter
         adapter.clearList();
-
+		
+		// open the database
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
 
@@ -142,7 +151,7 @@ public class AdminShopFragment extends Fragment {
         }
         else
         {
-            // select a specific product
+            // select a specific category of product
             cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
                     new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
                             DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID, DBDefs.Product.C_PRODUCT_ID},
@@ -166,8 +175,10 @@ public class AdminShopFragment extends Fragment {
                 products.add(prod);
             } while (cursor.moveToNext());
         }
-
+		
+		// for all of the products that where retrieved from the database
         for (int i = 0; i < products.size(); i++) {
+			// add them to the adapter to be shown in the recycler view
             adapter.addValue(products.get(i).getName(), products.get(i).getDescription(),
                     products.get(i).getPrice(), products.get(i).getID());
         }
@@ -176,6 +187,7 @@ public class AdminShopFragment extends Fragment {
         adapter.update();
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

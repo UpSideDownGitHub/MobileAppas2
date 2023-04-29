@@ -33,20 +33,29 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class AdminEditUserFragment extends Fragment {
-    private AdminFragmentEdituserBinding binding;
+	// public varaibles
     public int userID;
+	
+    // private variables
+    private AdminFragmentEdituserBinding binding;
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = AdminFragmentEdituserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+		
+		// load shared preferences and get the current user that has been selected
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         userID = sharedPref.getInt("adminSelectedUser", 0);
-
+		
+		// add listenters to all of the buttons on the layout
         Button cancelButton = binding.adminCancelNewProductUpdateButtonUser;
         Button deleteButton = binding.adminDeleteUserButtonUser;
         Button updateButton = binding.adminUpdateProductButtonUser;
@@ -78,6 +87,7 @@ public class AdminEditUserFragment extends Fragment {
                 new String[]{Integer.toString(userID)},
                 null, null, null, null);
         do {
+			// save the data for this current user
             user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME)));
             user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PASSWORD)));
             user.setPhoneNumber(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_PHONE_NUMBER)));
@@ -87,7 +97,8 @@ public class AdminEditUserFragment extends Fragment {
             user.setHobby(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_HOBBIES)));
             user.setID(userID);
         }while(cursor.moveToNext());
-
+		
+		// set the text views to hold the existing data
         name.setText(user.getFullName());
         password.setText(user.getPassword());
         number.setText(user.getPhoneNumber());
@@ -97,10 +108,14 @@ public class AdminEditUserFragment extends Fragment {
         hobby.setText(user.getHobby());
 
         dbManager.close();
-
+		
+		// retrn root
         return root;
     }
-
+	
+	/*
+		this function will handle delting users from the database
+	*/
     public void deleteElement()
     {
         // DELETE THE USER FROM THE DATABASE
@@ -109,18 +124,24 @@ public class AdminEditUserFragment extends Fragment {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
 
-        // TODO: ADD IN THE REMOVAL OF ITEMS IN PRODUCT_ORDER
+        // remove the user and also remove all of there orders
         dbManager.delete(DBDefs.User_Order.TABLE_NAME, "user_id",
                 new String[]{Integer.toString(userID)});
         dbManager.delete(DBDefs.User.TABLE_NAME, "user_id",
                 new String[]{Integer.toString(userID)});
-
+		
+		// close the data base and load to the admin user page
         dbManager.close();
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_user);
     }
-
+	
+	/*
+		this function when called will update all of the information entererd by the admin
+		about the current user
+	*/
     public void update()
     {
+		// load all of the information that has been entered
         String name = binding.adminProductnameupdateEntryUser.getText().toString();
         String email = binding.registerEmailEditTextUser.getText().toString();
         String password = binding.adminProductDescriptionUpdateEntryUser.getText().toString();
@@ -128,6 +149,8 @@ public class AdminEditUserFragment extends Fragment {
         String address = binding.registerAddressEditTextUser.getText().toString();
         String number = binding.registerPhoneNumberEditTextUser.getText().toString();
         String hobby = binding.adminUpdateHobbyEditText.getText().toString();
+		
+		// get the current date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -135,16 +158,20 @@ public class AdminEditUserFragment extends Fragment {
             LocalDate d = LocalDate.now(ZoneId.systemDefault());
             date = d.format(dateFormatter);
         }
-
+		
+		// if any of the ented peices of data are empty then tell the user that 
+		// they cant be empty
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
                 address.isEmpty() || number.isEmpty() || hobby.isEmpty())
         {
+			// tell user that they cant be empty
             Toast.makeText(
                     getContext(),
                     "Make Sure No Entries Are Empty",
                     Toast.LENGTH_SHORT).show();
             return;
         }
+		// if the email is not the correct format then warn the user
         if (!email.matches(EMAIL_PATTERN))
         {
             Toast.makeText(
@@ -153,6 +180,7 @@ public class AdminEditUserFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+		// if the postcode is not the right format then warn the user
         if (!postcode.matches("^([A-Z][A-HJ-Y]?\\d[A-Z\\d]? ?\\d[A-Z]{2}|GIR ?0A{2})$"))
         {
             Toast.makeText(
@@ -161,6 +189,7 @@ public class AdminEditUserFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+		// if the phone number is not the right format then warn the user
         if (!number.matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"))
         {
             Toast.makeText(
@@ -169,17 +198,20 @@ public class AdminEditUserFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
+		
+		// open the data base
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
-
+		// get all users with the same name as the entered name
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME},
                 DBDefs.User.C_FULL_NAME + " like ?",
                 new String[]{name},
                 null, null, null, null);
+		// if there is a user with the current entered name
         if (cursor.getCount() > 0)
         {
+			//warn the user that there name is a duplicate
             Toast.makeText(
                     getContext(),
                     "User Name Already Taken",
@@ -187,11 +219,13 @@ public class AdminEditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
+		// get all the users with he same email as the current user
         Cursor cursor2 = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_EMAIL_ADDRESS},
                 DBDefs.User.C_EMAIL_ADDRESS + " like ?",
                 new String[]{email},
                 null, null, null, null);
+		// if there are any users with the game email then warn the user
         if (cursor2.getCount() > 0)
         {
             Toast.makeText(
@@ -201,12 +235,16 @@ public class AdminEditUserFragment extends Fragment {
             dbManager.close();
             return;
         }
-
+		
+		// update the current player with the new infroamtion that has been entered
         dbManager.update(name, email, password, postcode, address, date, userID, number, hobby,null);
         dbManager.close();
+		
+		// load the admin user layout
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_user);
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

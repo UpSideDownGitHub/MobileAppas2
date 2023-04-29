@@ -3,11 +3,14 @@ package com.example.mobileappas2.ui.user;
 import com.example.mobileappas2.Database.DataHolders.Products;
 
 public class OldOrderData {
+	// private varaibles
     private String orderDate;
     private String orderUpdateDate;
     private String orderProducts;
     private String orderTotalPrice;
     private String orderStatus;
+	
+	// GETTERS & SETTERS
 
     public String getOrderDate() {
         return orderDate;

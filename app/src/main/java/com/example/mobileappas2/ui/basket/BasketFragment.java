@@ -29,22 +29,28 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class BasketFragment extends Fragment {
-
+	// private variables
     private FragmentBasketBinding binding;
     private BasketAdapter adapter;
+	
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root
         binding = FragmentBasketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Recycler View
+        // setup the Recycler View
         TextView priceText = binding.basketTotalText;
         adapter = new BasketAdapter(getActivity(), getContext(), priceText);
         RecyclerView recyclerView = (RecyclerView) binding.basketRecyclerView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
+		
+		// get Buttons from the layout and add the corosponding listeners to them
         Button buyButton = binding.buyContentsButton;
         buyButton.setOnClickListener(view -> buyContent());
 
@@ -57,20 +63,29 @@ public class BasketFragment extends Fragment {
 
         return root;
     }
-
+	
+	/*
+		when called will return the total cost of all current items in the basket
+	*/
     public float totalCost()
-    {
+    {	
+		// loop through all of the items in the basket and calcuate the total cost 
         ArrayList<Products> products = BasketData.getBasketData();
         float subTotal = 0;
         for (int i = 0; i < products.size(); i++)
         {
             subTotal += products.get(i).getPrice();
         }
+		// return the total cost
         return subTotal;
     }
-
+	
+	/*
+		when this is pressed it will handle buying the contents of the basket
+	*/
     public void buyContent()
     {
+		// if there are no products in the basket then return
         ArrayList<Products> products = BasketData.getBasketData();
         if (products.size() <= 0)
         {
@@ -80,7 +95,8 @@ public class BasketFragment extends Fragment {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
 
-        // INSERT ITEM INTO ORDER
+        
+		// get the date
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -88,6 +104,7 @@ public class BasketFragment extends Fragment {
             LocalDate d = LocalDate.now(ZoneId.systemDefault());
             date = d.format(dateFormatter);
         }
+		// INSERT ITEM INTO ORDER
         dbManager.insert(date, date, 0);
 
         // FIND THE CURRENT ORDER ID (OF THE ORDER CREATED ABOVE)
@@ -97,7 +114,6 @@ public class BasketFragment extends Fragment {
         int lastOrderID = cursor.getCount();
 
         // INSERT ALL OF THE PRODUCTS IN THIS ORDER INTO THE PRODUCT_ORDER TABLE
-
         for (int i = 0; i < products.size(); i++)
         {
             dbManager.insert(products.get(i).getID(), lastOrderID);
@@ -109,12 +125,15 @@ public class BasketFragment extends Fragment {
         dbManager.insert(userID, lastOrderID, 1);
 
         dbManager.close();
-
+		
+		// remove all products from the basket as they have just been brought 
+		// then update the recycler view to show this
         BasketData.removeAllProducts();
         adapter.updateTotalCost();
         adapter.update();
     }
-
+	
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

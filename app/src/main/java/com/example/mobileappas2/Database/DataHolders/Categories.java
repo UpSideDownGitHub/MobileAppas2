@@ -1,10 +1,11 @@
 package com.example.mobileappas2.Database.DataHolders;
 
 public class Categories {
+	// private varaibles
     private String name, description;
     private Integer ID;
 
-
+	// GETTERS & SETTERS
     public String getName() {
         return name;
     }

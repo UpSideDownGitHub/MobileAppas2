@@ -53,7 +53,6 @@ public class AdminUsersAdapter extends RecyclerView.Adapter<AdminUsersAdapter.Vi
             int pos = globalPosition;
             // get the index of the item pressed in the note list
             int index = userData.indexOf(userData.get(pos));
-            // set the current index in shared preferences
             //Log.i("DEBUG", "Current Item Index: " + index);
 
             // NEED TO OPEN THE EDIT WINDOW WITH THIS PRODUCT

@@ -34,18 +34,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopFragment extends Fragment{
-
-    private FragmentShopBinding binding;
-
-    private ShopAdapter adapter;
-
-    public ArrayList<String> categoryTitles = new ArrayList();
+    // public varaibles
+	public ArrayList<String> categoryTitles = new ArrayList();
     public ArrayList<String> categoryDescriptions= new ArrayList();
-
     public TextView catTitle, catDescription;
 
+    // private variables
+    private FragmentShopBinding binding;
+    private ShopAdapter adapter;
+	
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root			 
         binding = FragmentShopBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -114,14 +117,19 @@ public class ShopFragment extends Fragment{
         recyclerView.setAdapter(adapter);
         updateAdapterView(0);
 
+		// return root
         return root;
     }
-
+	
+	/*
+		this function will update all of the information in the recycler view
+	*/
     public void updateAdapterView(int ID)
     {
         // clear the list of items in the current adapter
         adapter.clearList();
-
+		
+		// open the database
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
 
@@ -137,7 +145,7 @@ public class ShopFragment extends Fragment{
         }
         else
         {
-            // select a specific product
+            // select products from a specific category
             cursor = dbManager.fetch(DBDefs.Product.TABLE_NAME,
                     new String[]{DBDefs.Product.C_PRODUCT_NAME, DBDefs.Product.C_PRODUCT_DESCRIPTION,
                             DBDefs.Product.C_PRICE, DBDefs.Product.C_CATEGORY_ID, DBDefs.Product.C_PRODUCT_ID},
@@ -161,8 +169,10 @@ public class ShopFragment extends Fragment{
                 products.add(prod);
             } while (cursor.moveToNext());
         }
-
+		
+		// for all of the products that have been returned
         for (int i = 0; i < products.size(); i++) {
+			// add them to the recycler view
             adapter.addValue(products.get(i).getName(), products.get(i).getDescription(),
                     products.get(i).getPrice(), products.get(i).getID());
         }
@@ -171,6 +181,7 @@ public class ShopFragment extends Fragment{
         adapter.update();
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

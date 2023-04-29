@@ -31,15 +31,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class UserFragment extends Fragment {
-
+	// private variables
     private FragmentUserBinding binding;
     private OldOrdersAdapter adapter;
-
+	
+	/*
+        is called whenthe view is created
+    */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+		// inflate the view and get the root						 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+		
+		// add listener to the floating button to open the edit user screen
         Button floatingButton = binding.editUserActionButton;
         floatingButton.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_edituser);
@@ -64,6 +69,7 @@ public class UserFragment extends Fragment {
             name = cur.getString(cur.getColumnIndexOrThrow(DBDefs.User.C_FULL_NAME));
             email = cur.getString(cur.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS));
         }while (cur.moveToNext());
+		// show the name and the email of the player
         binding.userNameText.setText(name);
         binding.userEmailText.setText(email);
 
@@ -73,16 +79,19 @@ public class UserFragment extends Fragment {
                 DBDefs.User_Order.C_USER_ID + " like ?",
                 new String[]{Integer.toString(userID)},
                 null, null ,null,null);
-
+		// if the player has made orders
         if (cursor.getCount() > 0) {
             ArrayList<UserOrders> userOrders = new ArrayList();
             do {
+				// get all of the information for all of the orders the player made
                 UserOrders userOrder = new UserOrders();
                 userOrder.setOrderID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_ORDER_ID)));
                 userOrder.setUserID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_USER_ID)));
                 userOrders.add(userOrder);
             } while (cursor.moveToNext());
+			// for the ammount of orders the player made
             for (int i = 0; i < userOrders.size(); i++) {
+				// add an instance of OldOrderData to the list of oldOrderData
                 OldOrderData oldData = new OldOrderData();
                 oldOrderData.add(oldData);
             }
@@ -96,6 +105,7 @@ public class UserFragment extends Fragment {
                         DBDefs.Product_Order.C_ORDER_ID + " like ?",
                         new String[]{userOrders.get(i).getOrderID().toString()},
                         null, null, null, null);
+				// if there are any products
                 if (cursor2.getCount() > 0) {
                     do {
                         // product info list
@@ -132,6 +142,7 @@ public class UserFragment extends Fragment {
                         new String[]{userOrders.get(i).getOrderID().toString()},
                         null, null, null, null);
                 do {
+					// get all of the information of the order
                     Orders order = new Orders();
                     order.setDateCreated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_CREATED)));
                     order.setDateUpdated(cursor1.getString(cursor1.getColumnIndexOrThrow(DBDefs.Order.C_DATE_UPDATED)));
@@ -143,6 +154,7 @@ public class UserFragment extends Fragment {
                 String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
                 String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
                 String orderStatus = "Status";
+				// set the status to be equal to the current status of the order
                 if (orderList.get(0).getStatus() == 0)
                     orderStatus = "Status: " + getString(R.string.admin_status1);
                 else if (orderList.get(0).getStatus() == 1)
@@ -156,7 +168,9 @@ public class UserFragment extends Fragment {
                 oldOrderData.get(i).setOrderStatus(orderStatus);
             }
         }
-
+		
+		// update the recycler view to show all of the information that was just retrived from
+		// that database
         adapter = new OldOrdersAdapter(getActivity(), getContext(), oldOrderData);
         RecyclerView recyclerView = (RecyclerView) binding.oldOrdersRecyclerView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -167,6 +181,10 @@ public class UserFragment extends Fragment {
         return root;
     }
 
+	/*
+		this will take a input ofa list of proucts and return a string of the total pruce
+		all of the given products add up to
+	*/
     public String convertProductListToTotalString(ArrayList<Products> list)
     {
         float subTotal = 0;
@@ -177,6 +195,10 @@ public class UserFragment extends Fragment {
         return "Total: £ " + Float.toString(subTotal);
     }
 
+	/*
+		this will take a list of products and return a the converted list to be show
+		to the user
+	*/
     public String convertProductListToString(ArrayList<Products> list)
     {
         String tempString = "";
@@ -188,6 +210,7 @@ public class UserFragment extends Fragment {
         return tempString;
     }
 
+	// used to properly destroy the view
     @Override
     public void onDestroyView() {
         super.onDestroyView();

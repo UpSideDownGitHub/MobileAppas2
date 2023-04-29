@@ -7,8 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-// DM => Database Manager (short to simplify expressions it is in)
+// DBManager => Database Manager (short to simplify expressions it is in)
 public class DBManager {
+	// private variables
     Context context;
     private SQLiteDatabase database;
     private Database db;
@@ -230,7 +231,8 @@ limit: limit the number of results to return
         this.database.delete(tableName, IDName + "=?", whereArgs);
         //                   "Product",            "ID = ?"     "String[]{1}"
     }
-
+	
+	// this will delete all of the tables in the database
     public void purgeDatabase()
     {
         this.database.delete(DBDefs.Product_Order.TABLE_NAME, null, null);

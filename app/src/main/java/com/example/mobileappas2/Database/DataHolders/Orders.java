@@ -1,10 +1,12 @@
 package com.example.mobileappas2.Database.DataHolders;
 
 public class Orders {
+	// private variables
     private Integer ID, status;
     private String dateCreated, dateUpdated;
 
-
+	// GETTERS & SETTERS
+	
     public Integer getID() {
         return ID;
     }

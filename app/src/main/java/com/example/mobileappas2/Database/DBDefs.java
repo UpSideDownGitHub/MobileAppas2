@@ -10,7 +10,8 @@ public final class DBDefs
     TO CREATE ALL OF THE DIFFERENT TABLES THAT WILL BE
     USED
      */
-
+	
+	// user
     public static class User implements BaseColumns
     {
         // C_ => COLUMN
@@ -38,7 +39,8 @@ public final class DBDefs
                 C_ADDRESS + " VARCHAR, " +
                 C_PHONE_NUMBER + " VARCHAR);";
     }
-
+	
+	// order
     public static final class Order implements BaseColumns
     {
         public static final String TABLE_NAME = "placed_order"; // cant have "order"
@@ -54,6 +56,7 @@ public final class DBDefs
                 C_STATUS + " INTEGER);";
     }
 
+	// category
     public static final class Category implements BaseColumns
     {
         public static final String TABLE_NAME = "category";
@@ -67,6 +70,7 @@ public final class DBDefs
                 C_DESCRIPTION + " VARCHAR);";
     }
 
+	// product
     public static final class Product implements BaseColumns
     {
         public static final String TABLE_NAME = "product";
@@ -94,6 +98,7 @@ public final class DBDefs
 
     }
 
+	// user order
     public static final class User_Order implements BaseColumns
     {
         public static final String TABLE_NAME = "user_order";
@@ -109,6 +114,7 @@ public final class DBDefs
 
     }
 
+	// product order
     public static final class Product_Order implements BaseColumns
     {
         public static final String TABLE_NAME = "product_order";

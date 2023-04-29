@@ -1,10 +1,12 @@
 package com.example.mobileappas2.admin_ui.shop;
 
 public class AdminShopData {
+    // private variables
     private String title, description;
     private Float price;
     private Integer ID;
-
+	
+	// constructor for the data
     public AdminShopData(String val1, String val2, Float val3, Integer val4)
     {
         title = val1;
@@ -13,6 +15,7 @@ public class AdminShopData {
         ID = val4;
     }
 
+	// GETTERS & SETTERS
     public String getTitle() {
         return title;
     }

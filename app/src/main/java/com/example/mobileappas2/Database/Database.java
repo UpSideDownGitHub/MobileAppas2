@@ -9,19 +9,21 @@ import android.widget.Toast;
 
 public class Database extends SQLiteOpenHelper
 {
-
+	// public variables
     public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "Database.db";
-
     public Context curContext;
-
+	
+	// constructor to set the context
     public Database (Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         curContext = context;
     }
 
-
+	/*
+		when the object is created initilse the database
+	*/
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -32,7 +34,10 @@ public class Database extends SQLiteOpenHelper
         db.execSQL(DBDefs.User_Order.CREATE_TABLE);
         db.execSQL(DBDefs.Product_Order.CREATE_TABLE);
     }
-
+	
+	/*
+		when the database has been updated when remove the old database and create a new one
+	*/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
