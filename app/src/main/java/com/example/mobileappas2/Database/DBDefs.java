@@ -24,6 +24,7 @@ public final class DBDefs
         public static final String C_POSTCODE = "postcode";
         public static final String C_ADDRESS = "address";
         public static final String C_PHONE_NUMBER = "phone_number";
+        public static final String C_HOBBIES = "hobby";
 
         public static final String CREATE_TABLE = "create table " + TABLE_NAME + " ( " +
                 C_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -32,6 +33,7 @@ public final class DBDefs
                 C_PASSWORD + " VARCHAR, " +
                 C_DATE_REGISTERED + " VARCHAR, " +
                 C_DATE_UPDATED + " VARCHAR, " +
+                C_HOBBIES + " VARCHAR, " +
                 C_POSTCODE + " VARCHAR, " +
                 C_ADDRESS + " VARCHAR, " +
                 C_PHONE_NUMBER + " VARCHAR);";

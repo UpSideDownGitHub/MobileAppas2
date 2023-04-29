@@ -110,6 +110,7 @@
         android:ems="10"
         android:hint="@string/email_entry"
         android:inputType="textEmailAddress"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -127,10 +128,10 @@
         android:id="@+id/registerReEmail_editText"
         android:layout_width="175dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="@string/re_email_entry"
         android:inputType="textEmailAddress"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -138,20 +139,20 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="@string/postcode_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerPostcode_editText"
         app:layout_constraintStart_toStartOf="@+id/registerPostcode_editText"
-        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText" />
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/registerAddress_editText"
-        android:layout_width="250dp"
+        android:layout_width="175dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="@string/address_entry"
         android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -165,15 +166,25 @@
         app:layout_constraintStart_toStartOf="@+id/registerPhoneNumber_editText"
         app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText" />
 
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/hobby_entry"
+        app:layout_constraintEnd_toEndOf="@+id/registerHobby_editText"
+        app:layout_constraintStart_toStartOf="@+id/registerHobby_editText"
+        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumber_editText" />
+
     <EditText
         android:id="@+id/registerPostcode_editText"
-        android:layout_width="250dp"
+        android:layout_width="175dp"
         android:layout_height="50dp"
         android:ems="10"
+        android:layout_marginEnd="10dp"
         android:hint="@string/postcode_entry"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
@@ -187,6 +198,20 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <EditText
+        android:id="@+id/registerHobby_editText"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="@string/hobby_entry"
+        android:inputType="textLongMessage|textMultiLine"
+        android:textAlignment="viewStart"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerUser_Button"

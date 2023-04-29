@@ -56,6 +56,7 @@ public class OldOrdersAdapter extends RecyclerView.Adapter<com.example.mobileapp
         holder.orderMade.setText(quizDataHolder1.getOrderDate());
         holder.orderUpdated.setText(quizDataHolder1.getOrderUpdateDate());
         holder.orderProducts.setText(quizDataHolder1.getOrderProducts());
+        holder.orderStatus.setText(quizDataHolder1.getOrderStatus());
         holder.orderTotal.setText(quizDataHolder1.getOrderTotalPrice());
     }
 
@@ -75,6 +76,7 @@ public class OldOrdersAdapter extends RecyclerView.Adapter<com.example.mobileapp
         TextView orderMade;
         TextView orderUpdated;
         TextView orderProducts;
+        TextView orderStatus;
         TextView orderTotal;
         /*
          * constructor to initialize the view holder
@@ -85,6 +87,7 @@ public class OldOrdersAdapter extends RecyclerView.Adapter<com.example.mobileapp
             orderMade = (TextView) view.findViewById(R.id.datemade_OldOrder_Text);
             orderUpdated = (TextView) view.findViewById(R.id.dateupdated_OldOrder_Text);
             orderProducts = (TextView) view.findViewById(R.id.products_OldOrder_Text);
+            orderStatus = (TextView) view.findViewById(R.id.status_OldOrder_Text);
             orderTotal = (TextView) view.findViewById(R.id.totalcost_OldOrder_Text);
         }
     }

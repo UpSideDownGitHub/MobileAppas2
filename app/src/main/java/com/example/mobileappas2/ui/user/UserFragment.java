@@ -142,7 +142,15 @@ public class UserFragment extends Fragment {
                 // convert the data to show the current date and the order date in string form
                 String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
                 String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
-                String orderStatus = "Status: " + orderList.get(0).getStatus();
+                String orderStatus = "Status";
+                if (orderList.get(0).getStatus() == 0)
+                    orderStatus = "Status: " + getString(R.string.admin_status1);
+                else if (orderList.get(0).getStatus() == 1)
+                    orderStatus = "Status: " + getString(R.string.admin_status2);
+                else if (orderList.get(0).getStatus() == 2)
+                    orderStatus = "Status: " + getString(R.string.admin_status3);
+                else if (orderList.get(0).getStatus() == 3)
+                    orderStatus = "Status: " + getString(R.string.admin_status4);
                 oldOrderData.get(i).setOrderDate(orderDate);
                 oldOrderData.get(i).setOrderUpdateDate(orderUpdated);
                 oldOrderData.get(i).setOrderStatus(orderStatus);

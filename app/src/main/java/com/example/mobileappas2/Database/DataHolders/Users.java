@@ -4,7 +4,7 @@ public class Users {
     private String fullName, email,
             password, postcode,
             address;
-    private String dateRegistered, dateUpdated, phoneNumber;
+    private String dateRegistered, dateUpdated, phoneNumber, hobby;
     private Integer ID;
 
 
@@ -79,5 +79,13 @@ public class Users {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
     }
 }

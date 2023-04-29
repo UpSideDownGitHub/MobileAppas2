@@ -1,14 +1,17 @@
 package com.example.mobileappas2.admin_ui.order;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileappas2.Database.DataHolders.Products;
@@ -23,14 +26,17 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
     private ArrayList<OrderData> orderData;
     private Context context;
     private FragmentActivity activity;
-
+    private ToggleButton[] toggles;
+    public static int currentSelectedOrderID = -1;
     /*
      * Constructor for initialization
      */
-    public AdminOrderAdapter(FragmentActivity givenActivity, Context context, ArrayList givenItems) {
+    public AdminOrderAdapter(FragmentActivity givenActivity, Context context, ArrayList givenItems, ToggleButton[] toggles) {
         this.context = context;
         this.orderData = givenItems;
         this.activity = givenActivity;
+        this.toggles = toggles;
+        //currentSelectedOrderID = -1;
     }
 
     /*
@@ -42,6 +48,16 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
         // Create the new viewHolder and return it
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.oldorder_item_fragment, parent, false);
         AdminOrderAdapter.ViewHolder2 viewHolder = new AdminOrderAdapter.ViewHolder2(view);
+
+        view.setOnClickListener(v -> {
+            int pos = viewHolder.getAbsoluteAdapterPosition();
+            int index = orderData.indexOf(orderData.get(pos));
+            currentSelectedOrderID = orderData.get(index).getOrderID();
+            toggles[0].setChecked(false);
+            toggles[1].setChecked(false);
+            toggles[2].setChecked(false);
+            toggles[3].setChecked(false);
+        });
         return viewHolder;
     }
 
@@ -56,6 +72,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
         holder.orderMade.setText(quizDataHolder1.getOrderDate());
         holder.orderUpdated.setText(quizDataHolder1.getOrderUpdateDate());
         holder.orderProducts.setText(quizDataHolder1.getOrderProducts());
+        holder.orderStatus.setText(quizDataHolder1.getOrderStatus());
         holder.orderTotal.setText(quizDataHolder1.getOrderTotalPrice());
     }
 
@@ -75,6 +92,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
         TextView orderMade;
         TextView orderUpdated;
         TextView orderProducts;
+        TextView orderStatus;
         TextView orderTotal;
         /*
          * constructor to initialize the view holder
@@ -84,6 +102,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Vi
             // get all of the text views
             orderMade = (TextView) view.findViewById(R.id.datemade_OldOrder_Text);
             orderUpdated = (TextView) view.findViewById(R.id.dateupdated_OldOrder_Text);
+            orderStatus = (TextView) view.findViewById(R.id.status_OldOrder_Text);
             orderProducts = (TextView) view.findViewById(R.id.products_OldOrder_Text);
             orderTotal = (TextView) view.findViewById(R.id.totalcost_OldOrder_Text);
         }

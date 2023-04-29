@@ -3,13 +3,16 @@ package com.example.mobileappas2.admin_ui.order;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +29,10 @@ import com.example.mobileappas2.databinding.AdminFragmentOrdersBinding;
 import com.example.mobileappas2.ui.user.OldOrderData;
 import com.example.mobileappas2.ui.user.OldOrdersAdapter;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class AdminOrderFragment extends Fragment {
@@ -34,6 +41,8 @@ public class AdminOrderFragment extends Fragment {
     private AdminOrderAdapter adapter;
     public ArrayList<String> playerNames = new ArrayList();
     public int userID = 0;
+
+    public ToggleButton[] toggles;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,8 +96,59 @@ public class AdminOrderFragment extends Fragment {
             }
         });
 
+        toggles = new ToggleButton[]{binding.adminOrderToggle1, binding.adminOrderToggle2,
+                binding.adminOrderToggle3,binding.adminOrderToggle4};
+        toggles[0].setOnClickListener(view -> toggleSelected(0));
+        toggles[1].setOnClickListener(view -> toggleSelected(1));
+        toggles[2].setOnClickListener(view -> toggleSelected(2));
+        toggles[3].setOnClickListener(view -> toggleSelected(3));
+
         updateAdapter();
         return root;
+    }
+
+    public void toggleSelected(int toggleID)
+    {
+        enableToggles(toggleID);
+        /*
+        *   0 = making order
+        *   1 = dispatched
+        *   2 = out for delivery
+        *   3 = delivered
+        */
+        // if there is no item selected then return
+        Log.i("DEBUG", "CURRENT ID: " + AdminOrderAdapter.currentSelectedOrderID);
+        if (AdminOrderAdapter.currentSelectedOrderID < 0)
+            return;
+        String date = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter dateFormatter
+                    = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+            LocalDate d = LocalDate.now(ZoneId.systemDefault());
+            date = d.format(dateFormatter);
+        }
+
+        DBManager dbManager = new DBManager(getContext());
+        dbManager.open();
+        dbManager.update(AdminOrderAdapter.currentSelectedOrderID,
+                date,
+                toggleID,
+                null);
+        dbManager.close();
+        updateAdapter();
+    }
+
+    /*
+        disables all of the toggles and then will enable the toggle that was pressed
+     */
+    public void enableToggles(int togglePressed)
+    {
+        toggles[0].setChecked(false);
+        toggles[1].setChecked(false);
+        toggles[2].setChecked(false);
+        toggles[3].setChecked(false);
+
+        toggles[togglePressed].setChecked(true);
     }
 
     public void updateAdapter() {
@@ -116,7 +176,7 @@ public class AdminOrderFragment extends Fragment {
 
         Cursor cursor;
         if (userID == 0) {
-            // GET ALL OF THE ORDER ID'S FOR THE CURRENT PLAYER
+            // GET ALL OF THE ORDER ID'S
             cursor = dbManager.fetch(DBDefs.User_Order.TABLE_NAME,
                     new String[]{DBDefs.User_Order.C_ORDER_ID, DBDefs.User_Order.C_USER_ID},
                     null, null, null,
@@ -130,8 +190,9 @@ public class AdminOrderFragment extends Fragment {
                     null, null, null, null);
         }
 
-
+        // if there are any orders
         if (cursor.getCount() > 0) {
+            // create a list that will hold the orders information
             ArrayList<UserOrders> userOrders = new ArrayList();
             do {
                 UserOrders userOrder = new UserOrders();
@@ -139,7 +200,10 @@ public class AdminOrderFragment extends Fragment {
                 userOrder.setUserID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.User_Order.C_USER_ID)));
                 userOrders.add(userOrder);
             } while (cursor.moveToNext());
+
+            // for the amount of orders
             for (int i = 0; i < userOrders.size(); i++) {
+                // and a instance of orderData to the list of orders (to be filled later)
                 OrderData oldData = new OrderData();
                 orderData.add(oldData);
             }
@@ -199,14 +263,24 @@ public class AdminOrderFragment extends Fragment {
                 // convert the data to show the current date and the order date in string form
                 String orderDate = "Order Made: " + orderList.get(0).getDateCreated();
                 String orderUpdated = "Order Updated: " + orderList.get(0).getDateUpdated();
-                String orderStatus = "Status: " + orderList.get(0).getStatus();
+                String orderStatus = "Status";
+                if (orderList.get(0).getStatus() == 0)
+                    orderStatus = "Status: " + getString(R.string.admin_status1);
+                else if (orderList.get(0).getStatus() == 1)
+                    orderStatus = "Status: " + getString(R.string.admin_status2);
+                else if (orderList.get(0).getStatus() == 2)
+                    orderStatus = "Status: " + getString(R.string.admin_status3);
+                else if (orderList.get(0).getStatus() == 3)
+                    orderStatus = "Status: " + getString(R.string.admin_status4);
                 orderData.get(i).setOrderDate(orderDate);
                 orderData.get(i).setOrderUpdateDate(orderUpdated);
                 orderData.get(i).setOrderStatus(orderStatus);
+                orderData.get(i).setOrderID(orderList.get(0).getID());
             }
         }
 
-        adapter = new AdminOrderAdapter(getActivity(), getContext(), orderData);
+        // initialise the adapter to hold all of the orders found above.
+        adapter = new AdminOrderAdapter(getActivity(), getContext(), orderData , toggles);
         RecyclerView recyclerView = (RecyclerView) binding.adminOrdersRecyclerView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);

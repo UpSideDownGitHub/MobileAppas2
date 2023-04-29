@@ -81,6 +81,7 @@ public class Register extends AppCompatActivity {
         EditText address = findViewById(R.id.registerAddress_editText);
         EditText postcode = findViewById(R.id.registerPostcode_editText);
         EditText phoneNumber = findViewById(R.id.registerPhoneNumber_editText);
+        EditText hobby = findViewById(R.id.registerHobby_editText);
 
         name.setTextColor(getColor(R.color.black));
         password.setTextColor(getColor(R.color.black));
@@ -90,6 +91,7 @@ public class Register extends AppCompatActivity {
         address.setTextColor(getColor(R.color.black));
         postcode.setTextColor(getColor(R.color.black));
         phoneNumber.setTextColor(getColor(R.color.black));
+        hobby.setTextColor(getColor(R.color.black));
 
         if (name.getText().toString().isEmpty() ||
                 password.getText().toString().isEmpty() ||
@@ -98,6 +100,7 @@ public class Register extends AppCompatActivity {
                 re_email.getText().toString().isEmpty() ||
                 address.getText().toString().isEmpty() ||
                 postcode.getText().toString().isEmpty() ||
+                hobby.getText().toString().isEmpty() ||
                 phoneNumber.getText().toString().isEmpty()) {
             Toast.makeText(
                     getApplicationContext(),
@@ -183,7 +186,8 @@ public class Register extends AppCompatActivity {
                 address.getText().toString(),
                 date,
                 date,
-                phoneNumber.getText().toString());
+                phoneNumber.getText().toString(),
+                hobby.getText().toString());
 
         dbManager.close();
 

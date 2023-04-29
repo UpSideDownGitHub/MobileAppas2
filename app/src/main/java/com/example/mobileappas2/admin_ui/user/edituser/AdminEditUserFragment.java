@@ -63,6 +63,7 @@ public class AdminEditUserFragment extends Fragment {
         TextView postcode = binding.registerPostcodeEditTextUser;
         TextView address = binding.registerAddressEditTextUser;
         TextView number = binding.registerPhoneNumberEditTextUser;
+        TextView hobby = binding.adminUpdateHobbyEditText;
 
         // GET THE CURRENT DATA HELD IN THE DATABASE FOR THIS USER
         DBManager dbManager = new DBManager(getContext());
@@ -71,7 +72,8 @@ public class AdminEditUserFragment extends Fragment {
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD,
                         DBDefs.User.C_PHONE_NUMBER, DBDefs.User.C_ADDRESS,
-                        DBDefs.User.C_EMAIL_ADDRESS, DBDefs.User.C_POSTCODE},
+                        DBDefs.User.C_EMAIL_ADDRESS, DBDefs.User.C_POSTCODE,
+                        DBDefs.User.C_HOBBIES},
                 DBDefs.User.C_USER_ID + " like ?",
                 new String[]{Integer.toString(userID)},
                 null, null, null, null);
@@ -82,6 +84,7 @@ public class AdminEditUserFragment extends Fragment {
             user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_ADDRESS)));
             user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS)));
             user.setPostcode(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_POSTCODE)));
+            user.setHobby(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_HOBBIES)));
             user.setID(userID);
         }while(cursor.moveToNext());
 
@@ -91,6 +94,7 @@ public class AdminEditUserFragment extends Fragment {
         address.setText(user.getAddress());
         email.setText(user.getEmail());
         postcode.setText(user.getPostcode());
+        hobby.setText(user.getHobby());
 
         dbManager.close();
 
@@ -123,6 +127,7 @@ public class AdminEditUserFragment extends Fragment {
         String postcode = binding.registerPostcodeEditTextUser.getText().toString();
         String address = binding.registerAddressEditTextUser.getText().toString();
         String number = binding.registerPhoneNumberEditTextUser.getText().toString();
+        String hobby = binding.adminUpdateHobbyEditText.getText().toString();
         String date = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter dateFormatter
@@ -132,7 +137,7 @@ public class AdminEditUserFragment extends Fragment {
         }
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
-                address.isEmpty() || number.isEmpty())
+                address.isEmpty() || number.isEmpty() || hobby.isEmpty())
         {
             Toast.makeText(
                     getContext(),
@@ -197,7 +202,7 @@ public class AdminEditUserFragment extends Fragment {
             return;
         }
 
-        dbManager.update(name, email, password, postcode, address, date, userID, number, null);
+        dbManager.update(name, email, password, postcode, address, date, userID, number, hobby,null);
         dbManager.close();
         Navigation.findNavController(getView()).navigate(R.id.navigation_admin_user);
     }

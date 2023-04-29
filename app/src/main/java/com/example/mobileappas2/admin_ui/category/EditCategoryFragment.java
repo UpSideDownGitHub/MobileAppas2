@@ -3,6 +3,7 @@ package com.example.mobileappas2.admin_ui.category;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.motion.widget.Debug;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 public class EditCategoryFragment extends Fragment {
     private AdminFragmentEditcategoryBinding binding;
     public int currentCatID = 0;
-
+    public Categories oldCat;
 
     ArrayList<String> catNames = new ArrayList();
     ArrayList<Categories> categoryList = new ArrayList();
@@ -100,7 +102,7 @@ public class EditCategoryFragment extends Fragment {
     }
     public void updateCategory()
     {
-        if (currentCatID == 0 || currentCatID == 1)
+        if (currentCatID == 0 || currentCatID == 1 || currentCatID == 2)
         {
             Toast.makeText(
                     getContext(),
@@ -124,19 +126,22 @@ public class EditCategoryFragment extends Fragment {
         // CREATE A NEW CATEGORY
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
-        Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
-                new String[]{DBDefs.Category.C_CATEGORY_ID},
-                DBDefs.Category.C_NAME + " like ?",
-                new String[]{name},
-                null,null,null,null);
-        if (cursor.getCount() > 0)
-        {
-            Toast.makeText(
-                    getContext(),
-                    "There is already a category with that name",
-                    Toast.LENGTH_SHORT).show();
-            dbManager.close();
-            return;
+
+        // if the username all ready exists but is not this current object
+        if (!oldCat.getName().equals(name)) {
+            Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
+                    new String[]{DBDefs.Category.C_CATEGORY_ID},
+                    DBDefs.Category.C_NAME + " like ?",
+                    new String[]{name},
+                    null, null, null, null);
+            if (cursor.getCount() > 0) {
+                Toast.makeText(
+                        getContext(),
+                        "There is already a category with that name",
+                        Toast.LENGTH_SHORT).show();
+                dbManager.close();
+                return;
+            }
         }
         dbManager.update(name, desc, currentCatID, null);
         dbManager.close();
@@ -145,7 +150,7 @@ public class EditCategoryFragment extends Fragment {
     }
     public void deleteCategory()
     {
-        if (currentCatID == 0 || currentCatID == 1)
+        if (currentCatID == 0 || currentCatID == 1 || currentCatID == 2)
         {
             Toast.makeText(
                     getContext(),
@@ -175,6 +180,7 @@ public class EditCategoryFragment extends Fragment {
         DBManager dbManager = new DBManager(getContext());
         dbManager.open();
         catNames = new ArrayList();
+        categoryList.clear();
 
         // load the data from the database
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
@@ -203,14 +209,13 @@ public class EditCategoryFragment extends Fragment {
                 catNames);
         arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(arrayAdapter);
-        setNameandDescription();
+        setNameandDescription(0);
 
         // add listener to add to the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                currentCatID = spinner.getSelectedItemPosition();
-                setNameandDescription();
+                setNameandDescription(spinner.getSelectedItemPosition());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {}
@@ -218,7 +223,7 @@ public class EditCategoryFragment extends Fragment {
         dbManager.close();
     }
 
-    public void setNameandDescription()
+    public void setNameandDescription(int position)
     {
         TextView name = binding.editCatNameEntry;
         TextView desc = binding.editCatDescEntry;
@@ -227,19 +232,22 @@ public class EditCategoryFragment extends Fragment {
         dbManager.open();
 
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
-                new String[]{DBDefs.Category.C_NAME, DBDefs.Category.C_DESCRIPTION},
+                new String[]{DBDefs.Category.C_NAME, DBDefs.Category.C_DESCRIPTION, DBDefs.Category.C_CATEGORY_ID},
                 DBDefs.Category.C_CATEGORY_ID + " like ?",
-                new String[]{Integer.toString(categoryList.get(currentCatID).getID())},
+                new String[]{Integer.toString(categoryList.get(position).getID())},
                 null,null,null,null);
-        Categories cat = new Categories();
+        oldCat = new Categories();
         if (cursor.getCount() > 0) {
             do {
-                cat.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_NAME)));
-                cat.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_DESCRIPTION)));
+                oldCat.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_NAME)));
+                oldCat.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.Category.C_DESCRIPTION)));
+                oldCat.setID(cursor.getInt(cursor.getColumnIndexOrThrow(DBDefs.Category.C_CATEGORY_ID)));
             } while (cursor.moveToNext());
 
-            name.setText(cat.getName());
-            desc.setText(cat.getDescription());
+            currentCatID = oldCat.getID();
+            Log.i("DEBUG", "CURRENT ITEM ID: " + currentCatID);
+            name.setText(oldCat.getName());
+            desc.setText(oldCat.getDescription());
         }
 
         dbManager.close();

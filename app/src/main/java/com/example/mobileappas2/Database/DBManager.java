@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 // DM => Database Manager (short to simplify expressions it is in)
 public class DBManager {
@@ -96,7 +97,8 @@ public class DBManager {
                        String address,
                        String dateRegistered,
                        String dateUpdated,
-                       String phoneNumber) {
+                       String phoneNumber,
+                       String hobby) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);
         contentValue.put(DBDefs.User.C_EMAIL_ADDRESS, email);
@@ -106,6 +108,7 @@ public class DBManager {
         contentValue.put(DBDefs.User.C_DATE_REGISTERED, dateRegistered);
         contentValue.put(DBDefs.User.C_DATE_UPDATED, dateUpdated);
         contentValue.put(DBDefs.User.C_PHONE_NUMBER, phoneNumber);
+        contentValue.put(DBDefs.User.C_HOBBIES, hobby);
         this.database.insert(DBDefs.User.TABLE_NAME, null, contentValue);
     }
 
@@ -149,12 +152,10 @@ limit: limit the number of results to return
     }
     // Order
     public int update(Integer ID,
-                      String dateCreated,
                       String dateUpdated,
                       Integer status,
                       String[] whereArgs) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(DBDefs.Order.C_DATE_CREATED, dateCreated);
         contentValue.put(DBDefs.Order.C_DATE_UPDATED, dateUpdated);
         contentValue.put(DBDefs.Order.C_STATUS, status);
         return this.database.update(DBDefs.Order.TABLE_NAME, contentValue, "order_id = " + ID, whereArgs);
@@ -210,6 +211,7 @@ limit: limit the number of results to return
                        String dateUpdated,
                        Integer ID,
                        String phoneNumber,
+                       String hobby,
                        String[] whereArgs) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DBDefs.User.C_FULL_NAME, fullName);
@@ -219,6 +221,7 @@ limit: limit the number of results to return
         contentValue.put(DBDefs.User.C_ADDRESS, address);
         contentValue.put(DBDefs.User.C_DATE_UPDATED, dateUpdated);
         contentValue.put(DBDefs.User.C_PHONE_NUMBER, phoneNumber);
+        contentValue.put(DBDefs.User.C_HOBBIES, hobby);
         return this.database.update(DBDefs.User.TABLE_NAME, contentValue, "user_id = " + ID, whereArgs);
     }
 

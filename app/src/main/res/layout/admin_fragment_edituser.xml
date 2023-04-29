@@ -44,7 +44,7 @@
         android:id="@+id/admin_productnameupdate_entry_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/name_entry"
         android:inputType="textPersonName"
@@ -98,20 +98,19 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/postcode_entry"
         app:layout_constraintEnd_toEndOf="@+id/registerPostcode_editText_user"
         app:layout_constraintStart_toStartOf="@+id/registerPostcode_editText_user"
-        app:layout_constraintTop_toBottomOf="@+id/registerAddress_editText_user" />
+        app:layout_constraintTop_toTopOf="@+id/textView28" />
 
     <EditText
         android:id="@+id/registerAddress_editText_user"
         android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="@string/address_entry"
         android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -125,15 +124,25 @@
         app:layout_constraintStart_toStartOf="@+id/registerPhoneNumber_editText_user"
         app:layout_constraintTop_toBottomOf="@+id/registerPostcode_editText_user" />
 
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/hobby_entry"
+        app:layout_constraintEnd_toEndOf="@+id/admin_updateHobby_editText"
+        app:layout_constraintStart_toStartOf="@+id/admin_updateHobby_editText"
+        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumber_editText_user" />
+
     <EditText
         android:id="@+id/registerPostcode_editText_user"
-        android:layout_width="250dp"
+        android:layout_width="125dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="@string/postcode_entry"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
     <EditText
@@ -147,6 +156,19 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <EditText
+        android:id="@+id/admin_updateHobby_editText"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="@string/hobby_entry"
+        android:inputType="textLongMessage|textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/admin_cancelNewProductUpdate_Button_user"

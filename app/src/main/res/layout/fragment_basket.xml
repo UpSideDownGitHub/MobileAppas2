@@ -36,15 +36,15 @@
 
     <TextView
         android:id="@+id/basketTotal_Text"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/button_background"
         android:gravity="center"
+        android:paddingStart="10dp"
         android:text="@string/pricetotal_text"
         android:textAlignment="viewStart"
-        android:paddingStart="10dp"
         android:textColor="@color/black"
-        android:background="@drawable/button_background"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

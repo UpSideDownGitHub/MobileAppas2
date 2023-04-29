@@ -61,6 +61,7 @@ public class EditUserFragment extends Fragment {
         TextView postcode = binding.postcodeEditEditText;
         TextView address = binding.addressEditEditText;
         TextView phoneNumber = binding.phoneNumberEditEditText;
+        TextView hobby = binding.hobbyEditEditText;
         TextView oldPassword = binding.oldpasswordEditText;
 
         // GET THE CURRENT DATA HELD IN THE DATABASE FOR THIS USER
@@ -70,7 +71,8 @@ public class EditUserFragment extends Fragment {
         Cursor cursor = dbManager.fetch(DBDefs.User.TABLE_NAME,
                 new String[]{DBDefs.User.C_FULL_NAME, DBDefs.User.C_PASSWORD,
                         DBDefs.User.C_PHONE_NUMBER, DBDefs.User.C_ADDRESS,
-                        DBDefs.User.C_EMAIL_ADDRESS, DBDefs.User.C_POSTCODE},
+                        DBDefs.User.C_EMAIL_ADDRESS, DBDefs.User.C_POSTCODE,
+                        DBDefs.User.C_HOBBIES},
                 DBDefs.User.C_USER_ID + " like ?",
                 new String[]{Integer.toString(userID)},
                 null, null, null, null);
@@ -81,6 +83,7 @@ public class EditUserFragment extends Fragment {
             user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_ADDRESS)));
             user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_EMAIL_ADDRESS)));
             user.setPostcode(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_POSTCODE)));
+            user.setHobby(cursor.getString(cursor.getColumnIndexOrThrow(DBDefs.User.C_HOBBIES)));
             user.setID(userID);
         }while(cursor.moveToNext());
 
@@ -90,6 +93,7 @@ public class EditUserFragment extends Fragment {
         address.setText(user.getAddress());
         email.setText(user.getEmail());
         postcode.setText(user.getPostcode());
+        hobby.setText(user.getHobby());
 
         dbManager.close();
 
@@ -110,10 +114,11 @@ public class EditUserFragment extends Fragment {
         String postcode = binding.postcodeEditEditText.getText().toString();
         String address = binding.addressEditEditText.getText().toString();
         String phoneNumber = binding.phoneNumberEditEditText.getText().toString();
+        String hobby = binding.hobbyEditEditText.getText().toString();
         String oldPassword = binding.oldpasswordEditText.getText().toString();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || postcode.isEmpty() ||
-                address.isEmpty() || phoneNumber.isEmpty())
+                address.isEmpty() || phoneNumber.isEmpty() || hobby.isEmpty())
         {
             Toast.makeText(
                     getContext(),
@@ -210,7 +215,7 @@ public class EditUserFragment extends Fragment {
         // UPDATE THE CONTENTS OF THE DATABASE
         dbManager.update(username, email, password,
                 postcode, address, date, userID,
-                phoneNumber, null);
+                phoneNumber, hobby, null);
         dbManager.close();
 
         // return to the user screen

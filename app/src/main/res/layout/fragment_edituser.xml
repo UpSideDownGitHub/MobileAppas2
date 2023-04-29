@@ -24,6 +24,7 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/username_hint"
         app:layout_constraintEnd_toEndOf="@+id/usernameEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/usernameEdit_EditText"
@@ -45,6 +46,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/email_entry"
         app:layout_constraintEnd_toEndOf="@+id/emailEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/emailEdit_EditText"
@@ -66,6 +68,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/password_hint"
         app:layout_constraintEnd_toEndOf="@+id/passwordEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/passwordEdit_EditText"
@@ -73,13 +76,13 @@
 
     <EditText
         android:id="@+id/passwordEdit_EditText"
-        android:layout_width="300dp"
+        android:layout_width="175dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -90,38 +93,39 @@
         android:text="@string/postcode_entry"
         app:layout_constraintEnd_toEndOf="@+id/postcodeEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/postcodeEdit_EditText"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEdit_EditText" />
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
 
     <EditText
         android:id="@+id/postcodeEdit_EditText"
-        android:layout_width="300dp"
+        android:layout_width="125dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="@string/postcode_entry"
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/address_entry"
         app:layout_constraintEnd_toEndOf="@+id/addressEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/addressEdit_EditText"
-        app:layout_constraintTop_toBottomOf="@+id/postcodeEdit_EditText" />
+        app:layout_constraintTop_toBottomOf="@+id/oldpassword_EditText" />
 
     <EditText
         android:id="@+id/addressEdit_EditText"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="@string/address_entry"
         android:inputType="textPostalAddress"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -129,10 +133,22 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/phonenumber_entry"
         app:layout_constraintEnd_toEndOf="@+id/phoneNumberEdit_EditText"
         app:layout_constraintStart_toStartOf="@+id/phoneNumberEdit_EditText"
         app:layout_constraintTop_toBottomOf="@+id/addressEdit_EditText" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/hobby_entry"
+        app:layout_constraintEnd_toEndOf="@+id/hobbyEdit_editText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/hobbyEdit_editText"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberEdit_EditText" />
 
     <EditText
         android:id="@+id/phoneNumberEdit_EditText"
@@ -147,27 +163,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
+    <EditText
+        android:id="@+id/hobbyEdit_editText"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="@string/hobby_entry"
+        android:inputType="textLongMessage|textMultiLine"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/oldpassword_entry"
-        app:layout_constraintBottom_toTopOf="@+id/oldpassword_EditText"
         app:layout_constraintEnd_toEndOf="@+id/oldpassword_EditText"
-        app:layout_constraintStart_toStartOf="@+id/oldpassword_EditText" />
+        app:layout_constraintStart_toStartOf="@+id/oldpassword_EditText"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <EditText
         android:id="@+id/oldpassword_EditText"
-        android:layout_width="300dp"
+        android:layout_width="175dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="@string/oldpassword_entry"
         android:inputType="textPassword"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/updateUserInfo_Button"

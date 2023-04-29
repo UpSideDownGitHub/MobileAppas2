@@ -14,6 +14,7 @@
     <string name="username_incorrect_toast">Incorrect Username</string>
     <string name="password_incorrect_toast">Incorrect Password</string>
     <string name="welcome_toast">Welcome</string>
+    <string name="app_title">Kwesi James Local Store</string>
 
     <!-- REGISTER SCREEN -->
     <string name="register_Title">Register</string>
@@ -25,6 +26,7 @@
     <string name="address_entry">Delivery Address</string>
     <string name="postcode_entry">Postcode</string>
     <string name="phonenumber_entry">Phone Number</string>
+    <string name="hobby_entry">Hobby</string>
     <string name="register_button">Register</string>
     <string name="register_empty_toast">Make Sure To Fill All Entries</string>
     <string name="register_email_toast">Emails Do Not Match</string>
@@ -87,6 +89,10 @@
 
     <!-- VIEW ORDERS -->
     <string name="admin_order_title">Orders</string>
+    <string name="admin_status1">Making Confirmed</string>
+    <string name="admin_status2">Dispatched</string>
+    <string name="admin_status3">Out For Delivery</string>
+    <string name="admin_status4">Delivered</string>
 
     <!-- VIEW USERS -->
     <string name="admin_user_title">Users</string>

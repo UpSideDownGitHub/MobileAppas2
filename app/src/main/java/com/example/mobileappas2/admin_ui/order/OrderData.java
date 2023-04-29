@@ -6,6 +6,7 @@ public class OrderData {
     private String orderProducts;
     private String orderTotalPrice;
     private String orderStatus;
+    private int orderID;
 
     public String getOrderDate() {
         return orderDate;
@@ -45,4 +46,7 @@ public class OrderData {
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    public int getOrderID() {return orderID;}
+    public void setOrderID(int orderID) {this.orderID = orderID;}
 }

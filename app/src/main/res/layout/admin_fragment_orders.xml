@@ -47,7 +47,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_Orders_RecyclerView"
         android:layout_width="350dp"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/background_low_alpha"
         android:paddingTop="13dp"
@@ -65,4 +65,84 @@
         app:layout_constraintBottom_toBottomOf="@+id/admin_User_Spinner"
         app:layout_constraintEnd_toEndOf="@+id/admin_User_Spinner"
         app:layout_constraintTop_toTopOf="@+id/admin_User_Spinner" />
+
+    <ToggleButton
+        android:id="@+id/adminOrder_toggle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_toggle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_Orders_RecyclerView" />
+
+    <ToggleButton
+        android:id="@+id/adminOrder_toggle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_toggle"
+        app:layout_constraintStart_toEndOf="@+id/adminOrder_toggle1"
+        app:layout_constraintTop_toTopOf="@+id/adminOrder_toggle1" />
+
+    <ToggleButton
+        android:id="@+id/adminOrder_toggle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_toggle"
+        app:layout_constraintStart_toEndOf="@+id/adminOrder_toggle2"
+        app:layout_constraintTop_toTopOf="@+id/adminOrder_toggle2" />
+
+    <ToggleButton
+        android:id="@+id/adminOrder_toggle4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_toggle"
+        app:layout_constraintStart_toEndOf="@+id/adminOrder_toggle3"
+        app:layout_constraintTop_toTopOf="@+id/adminOrder_toggle3" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="@string/admin_status1"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/adminOrder_toggle1"
+        app:layout_constraintStart_toStartOf="@+id/adminOrder_toggle1"
+        app:layout_constraintTop_toBottomOf="@+id/adminOrder_toggle1" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="@string/admin_status2"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/adminOrder_toggle2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/adminOrder_toggle2"
+        app:layout_constraintTop_toBottomOf="@+id/adminOrder_toggle2" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="@string/admin_status3"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/adminOrder_toggle3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/adminOrder_toggle3"
+        app:layout_constraintTop_toBottomOf="@+id/adminOrder_toggle3" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="@string/admin_status4"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/adminOrder_toggle4"
+        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintStart_toEndOf="@+id/adminOrder_toggle3"
+        app:layout_constraintTop_toBottomOf="@+id/adminOrder_toggle4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
