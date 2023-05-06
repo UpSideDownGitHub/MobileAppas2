@@ -37,8 +37,41 @@ public class MainMenu extends AppCompatActivity {
 		// if there is not info in the database the put in the the default categories
         if (cursor.getCount() < 1)
         {
+            // if there is not data then insert the dummy data into the table
+            // CATEGORIES
             dbManager.insert("All", "All Items");
             dbManager.insert("Misc", "Random Items");
+            dbManager.insert("Fruit & Veg", "Fresh fruit & Veg picked daily");
+            dbManager.insert("Snack", "All of your favourite snacks");
+            dbManager.insert("Frozen", "Frozen goods");
+            dbManager.insert("Dairy", "All the best dairy products");
+
+            // PRODUCTS
+            dbManager.insert("Apple", "Fresh Red Apples",
+                    "06/05/2023", "06/05/2023",
+                    0.5f,0.5f, 0.5f, 2);
+            dbManager.insert("Pear", "Fresh green Pears",
+                    "06/05/2023", "06/05/2023",
+                    0.5f,0.5f, 0.5f, 2);
+            dbManager.insert("Chocolate", "the best milk chocolate",
+                    "06/05/2023", "06/05/2023",
+                    1f,1f, 1f, 3);
+            dbManager.insert("crisps", "crinkle cut crisps",
+                    "06/05/2023", "06/05/2023",
+                    0.5f,0.5f, 0.5f, 3);
+            dbManager.insert("Peas", "super Juicy Peas frozen to last",
+                    "06/05/2023", "06/05/2023",
+                    0.5f,0.5f, 0.5f, 4);
+            dbManager.insert("Milk", "Straight from the cow",
+                    "06/05/2023", "06/05/2023",
+                    1.5f,1.5f, 1.5f, 5);
+
+            // USER
+            dbManager.insert("example", "example@gmail.com",
+                    "pass", "NN4 5DQ", "32 Terrace Walk",
+                    "06/05/2023", "06/05/2023",
+                    "08767170258", "Swimming in the Sea");
+
         }
         dbManager.close();
 

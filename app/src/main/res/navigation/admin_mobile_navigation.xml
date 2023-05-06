@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/navigation_admin_order"
-        android:name="com.example.mobileappas2.admin_ui.order.AdminOrderFragment"
+        android:name="com.example.mobileappas2.admin_ui.user.order.AdminOrderFragment"
         android:label="@string/admin_navbar_3"
         tools:layout="@layout/admin_fragment_orders" />
 

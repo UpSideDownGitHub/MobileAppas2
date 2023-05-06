@@ -1,7 +1,5 @@
-package com.example.mobileappas2.admin_ui.order;
+package com.example.mobileappas2.admin_ui.user.order;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,8 +24,6 @@ import com.example.mobileappas2.Database.DataHolders.Products;
 import com.example.mobileappas2.Database.DataHolders.UserOrders;
 import com.example.mobileappas2.R;
 import com.example.mobileappas2.databinding.AdminFragmentOrdersBinding;
-import com.example.mobileappas2.ui.user.OldOrderData;
-import com.example.mobileappas2.ui.user.OldOrdersAdapter;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

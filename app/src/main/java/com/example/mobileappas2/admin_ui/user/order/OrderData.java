@@ -1,4 +1,4 @@
-package com.example.mobileappas2.admin_ui.order;
+package com.example.mobileappas2.admin_ui.user.order;
 
 public class OrderData {
 	// private variables

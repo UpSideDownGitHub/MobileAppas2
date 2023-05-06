@@ -13,10 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileappas2.Database.DBDefs;
 import com.example.mobileappas2.Database.DBManager;
-import com.example.mobileappas2.Database.DataHolders.UserOrders;
-import com.example.mobileappas2.Database.DataHolders.Users;
-import com.example.mobileappas2.admin_ui.order.OrderData;
-import com.example.mobileappas2.admin_ui.shop.AdminShopAdapter;
 import com.example.mobileappas2.databinding.AdminFragmentUsersBinding;
 
 import java.util.ArrayList;

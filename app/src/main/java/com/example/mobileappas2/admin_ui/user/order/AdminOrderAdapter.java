@@ -1,8 +1,6 @@
-package com.example.mobileappas2.admin_ui.order;
+package com.example.mobileappas2.admin_ui.user.order;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +9,9 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobileappas2.Database.DataHolders.Products;
 import com.example.mobileappas2.R;
-import com.example.mobileappas2.ui.basket.BasketData;
 
 import java.util.ArrayList;
 
