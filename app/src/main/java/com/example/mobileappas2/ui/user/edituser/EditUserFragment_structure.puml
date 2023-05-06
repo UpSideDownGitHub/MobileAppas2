@@ -1,0 +1,195 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.example.mobileappas2.ui.user.edituser.EditUserFragment",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1322970774 { 
+   	label=example
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1233910363 { 
+   	label=mobileappas2
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   DBManager18584553[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DBManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   context: Context [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   database: SQLiteDatabase [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   db: Database [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ close()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ delete(tableName: String, IDName: String, whereArgs: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fetch(table: String, columns: String[], selection: String, selectionArgs: String[], groupBy: String, having: String, orderBy: String, limit: String): Cursor</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(name: String, description: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(dateCreated: String, dateUpdated: String, status: Integer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(productID: Integer, orderID: Integer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(name: String, description: String, dateCreated: String, dateUpdated: String, price: Float, listPrice: Float, retailPrice: Float, categoryID: Integer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(userID: Integer, orderID: Integer, IGNORE: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ insert(fullName: String, email: String, password: String, postcode: String, address: String, dateRegistered: String, dateUpdated: String, phoneNumber: String, hobby: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ open(): DBManager</TD></TR>
+<TR><TD ALIGN="LEFT" >+ purgeDatabase()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(table: String, contentValue: ContentValues, whereClause: String, whereArgs: String[]): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(name: String, description: String, ID: Integer, whereArgs: String[]): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(ID: Integer, dateUpdated: String, status: Integer, whereArgs: String[]): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(ID: Integer, productID: Integer, orderID: Integer, whereArgs: String[]): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(name: String, description: String, dateCreated: String, dateUpdated: String, price: Float, listPrice: Float, retailPrice: Float, ID: Integer, categoryID: Integer, whereArgs: String[]): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(ID: Integer, userID: Integer, orderID: Integer, whereArgs: String[], IGNORE: int): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(fullName: String, email: String, password: String, postcode: String, address: String, dateUpdated: String, ID: Integer, phoneNumber: String, hobby: String, whereArgs: String[]): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Database18584553[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Database</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   curContext: Context [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ onCreate(db: SQLiteDatabase)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onUpgrade(db: SQLiteDatabase, oldVersion: int, newVersion: int)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EditUserFragment1311395898[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EditUserFragment</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   binding: FragmentEdituserBinding [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   user: Users [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   userID: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ cancelUpdate(view: View)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onDestroyView()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateUserInfo(view: View)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Users730258886[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Users</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   ID: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   address: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dateRegistered: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dateUpdated: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fullName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   hobby: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   phoneNumber: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   postcode: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+DBManager18584553 -> Database18584553[label="db
+[0..1]"];
+EditUserFragment1311395898 -> Users730258886[label="user
+[0..1]"];
+    
+}
+@enduml
