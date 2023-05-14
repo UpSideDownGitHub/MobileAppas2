@@ -15,7 +15,7 @@ import com.example.mobileappas2.Database.DataHolders.Users;
 
 public class MainMenu extends AppCompatActivity {
 	/*
-        is called whenthe view is created
+        is called when the view is created
     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +23,12 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 		
-		// if the action bar is visable then turn it off
+		// if the action bar is visible then turn it off
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        // check if there are the correct values in the data base if not then initilise it
+        // check if there are the correct values in the data base if not then initialise it
         DBManager dbManager = new DBManager(this);
         dbManager.open();
         Cursor cursor = dbManager.fetch(DBDefs.Category.TABLE_NAME,
